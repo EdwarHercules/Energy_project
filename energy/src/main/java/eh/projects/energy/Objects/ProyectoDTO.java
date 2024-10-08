@@ -1,29 +1,16 @@
-package eh.projects.energy.Entitys;
+package eh.projects.energy.Objects;
 
-import jakarta.persistence.*;
+import eh.projects.energy.Entitys.Usuario;
 
 import java.time.LocalDate;
 
-@Entity
-@Table(name = "proyecto")
-public class Proyecto {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+public class ProyectoDTO {
+    private  Long id;
     private String nombre;
-
     private String descripcion;
-
     private LocalDate fecha_inicio;
-
-    private LocalDate fecha_fin;
-
     private String estado;
-
-    @ManyToOne
-    @JoinColumn(name = "responsable_id", nullable = false)
-    private Usuario responable;
+    private Usuario responsable;
 
     public Long getId() {
         return id;
@@ -57,14 +44,6 @@ public class Proyecto {
         this.fecha_inicio = fecha_inicio;
     }
 
-    public LocalDate getFecha_fin() {
-        return fecha_fin;
-    }
-
-    public void setFecha_fin(LocalDate fecha_fin) {
-        this.fecha_fin = fecha_fin;
-    }
-
     public String getEstado() {
         return estado;
     }
@@ -73,24 +52,23 @@ public class Proyecto {
         this.estado = estado;
     }
 
-    public Usuario getResponable() {
-        return responable;
+    public Usuario getResponsable() {
+        return responsable;
     }
 
-    public void setResponable(Usuario responable) {
-        this.responable = responable;
+    public void setResponsable(Usuario responsable) {
+        this.responsable = responsable;
     }
 
-    public Proyecto(Long id, String nombre, String descripcion, LocalDate fecha_inicio, LocalDate fecha_fin, String estado, Usuario responable) {
+    public ProyectoDTO(Long id, String nombre, String descripcion, LocalDate fecha_inicio, String estado, Usuario responsable) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.fecha_inicio = fecha_inicio;
-        this.fecha_fin = fecha_fin;
         this.estado = estado;
-        this.responable = responable;
+        this.responsable = responsable;
     }
 
-    public Proyecto() {
+    public ProyectoDTO() {
     }
 }
