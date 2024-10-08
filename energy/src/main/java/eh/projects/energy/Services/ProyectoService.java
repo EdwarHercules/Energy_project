@@ -18,7 +18,7 @@ public class ProyectoService {
 
     @Autowired
     private ProyectoRepository proyectoRepository;
-    
+
 
     public List<ProyectoDTO> getAll() {
         List<Proyecto> proyectos =proyectoRepository.findAll();
@@ -51,7 +51,7 @@ public class ProyectoService {
         }
     }
 
-    public void deleteObject(Long id) {
+    public void deleteProyecto(Long id) {
         proyectoRepository.deleteById(id);
     }
 
