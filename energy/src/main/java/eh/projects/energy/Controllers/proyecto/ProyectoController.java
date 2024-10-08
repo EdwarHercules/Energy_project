@@ -31,6 +31,17 @@ public class ProyectoController {
         return proyectoDTOS.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    // Endpoint para crear un proyecto nuevo
+    @PostMapping
+    public ResponseEntity<ProyectoDTO> createNewObject(@RequestParam String email, @RequestBody ProyectoDTO proyectoDTO){
+        try{
+            ProyectoDTO newProject = proyectoService.crearProyectoNuevoPorUsuario(email, proyectoDTO);
+            return new ResponseEntity<>(newProject, HttpStatus.OK);
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
     // Endpoint para actualizar por id
     @PutMapping("/{id}")
     public ResponseEntity<ProyectoDTO> updateId(@PathVariable("id") Long id, @RequestBody ProyectoDTO dto) {

@@ -1,8 +1,10 @@
 package eh.projects.energy.Services;
 
 import eh.projects.energy.Entitys.Proyecto;
+import eh.projects.energy.Entitys.Usuario;
 import eh.projects.energy.Objects.ProyectoDTO;
 import eh.projects.energy.Repositories.ProyectoRepository;
+import eh.projects.energy.Repositories.UsuarioRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,25 @@ public class ProyectoService {
     @Autowired
     private ProyectoRepository proyectoRepository;
 
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+
+
+
+    public ProyectoDTO crearProyectoNuevoPorUsuario(String email, ProyectoDTO proyectoDTO){
+        Usuario usuario = usuarioRepository.findByEmail(email);
+
+        Proyecto proyecto = new Proyecto();
+        proyecto.setNombre(proyectoDTO.getNombre());
+        proyecto.setDescripcion(proyectoDTO.getDescripcion());
+        proyecto.setFecha_inicio(proyectoDTO.getFecha_inicio());
+        proyecto.setEstado(proyectoDTO.getEstado());
+        proyecto.setResponable(usuario);
+
+        Proyecto saveProyecto = proyectoRepository.save(proyecto);
+
+        return convertirDTO(saveProyecto);
+    }
 
     public List<ProyectoDTO> getAll() {
         List<Proyecto> proyectos =proyectoRepository.findAll();
@@ -62,8 +83,10 @@ public class ProyectoService {
                 proyecto.getNombre(),
                 proyecto.getDescripcion(),
                 proyecto.getFecha_inicio(),
+                proyecto.getFecha_fin(),
                 proyecto.getEstado(),
                 proyecto.getResponable()
+
         );
     }
 }
