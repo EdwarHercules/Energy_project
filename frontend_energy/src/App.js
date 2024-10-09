@@ -1,25 +1,53 @@
-import logo from './logo.svg';
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes, Navigate , useLocation} from 'react-router-dom';
+import { AuthProvider, useAuth } from './Components/auth/AuthContext'; // Asegúrate de que las rutas sean correctas
+import Login from './Components/auth/Login';
+import Register from './Components/auth/Register'; // Importa el componente de registro
+import NotFound from './Pages/NotFound';
+import Sidebar from './Components/sidebar'; // Ajusta la ruta según tu estructura
+import Proyectos from './Components/project/projectUser'
+
 import './App.css';
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AuthProvider>
+      <Router>
+        <Layout>
+          <Routes>
+            <Route path="*" element={<NotFound />} />
+            <Route path="/" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path='/proyectos' element={<PrivateRoute><Proyectos/></PrivateRoute>} />
+            {/* Añade más rutas aquí según sea necesario */}
+            <Route path="*" element={<Navigate to="/login" />} />
+          </Routes>
+        </Layout>
+      </Router>
+    </AuthProvider>
   );
-}
+};
+
+const Layout = ({ children }) => {
+  const { authData } = useAuth();
+  const location = useLocation(); // Obtén la ruta actual
+
+  // Verifica si la ruta actual es '/login' o '/register'
+  const shouldShowSidebar = authData.token && !['/', '/register'].includes(location.pathname);
+
+  return (
+    <div className="main-container">
+            {shouldShowSidebar && <Sidebar />}
+            <div className="content">
+                {children}
+            </div>
+        </div>
+  );
+};
+
+const PrivateRoute = ({ children }) => {
+  const { authData } = useAuth();
+  return authData.token ? children : <Navigate to="/login" />;
+};
 
 export default App;
