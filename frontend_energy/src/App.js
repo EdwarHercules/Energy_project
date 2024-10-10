@@ -6,7 +6,7 @@ import Register from './Components/auth/Register'; // Importa el componente de r
 import NotFound from './Pages/NotFound';
 import Sidebar from './Components/sidebar'; // Ajusta la ruta según tu estructura
 import Proyectos from './Components/project/projectUser'
-
+import ViewProject from './Components/Views/viewOneProject';
 import './App.css';
 
 const App = () => {
@@ -19,6 +19,7 @@ const App = () => {
             <Route path="/" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path='/proyectos' element={<PrivateRoute><Proyectos/></PrivateRoute>} />
+            <Route path="/proyecto/:id" element={<ViewProject />} /> {/* Nueva ruta para ver el proyecto */}
             {/* Añade más rutas aquí según sea necesario */}
             <Route path="*" element={<Navigate to="/login" />} />
           </Routes>

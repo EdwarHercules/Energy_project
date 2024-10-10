@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useAuth } from "../auth/AuthContext";
+import { useNavigate } from "react-router-dom"; // Importa useNavigate
 import { obtenerProyectosPorUsuario, eliminarProyecto } from "./projectService";
 import CreateProjectModal from "./projectNew";
 import EditProjectModal from "./projectEdit";
@@ -12,6 +13,7 @@ const ProjectUser = () => {
     const [editingProyecto, setEditingProyecto] = useState(null);
     const [showCreateModal, setShowCreateModal] = useState(false);
     const [showEditModal, setShowEditModal] = useState(false); // Para el modal de edición
+    const navigate = useNavigate(); // Crea el hook de navegación
 
     const [currentPage, setCurrentPage] = useState(1); // Página actual
     const [projectsPerPage] = useState(10); // Proyectos por página (10)
@@ -58,6 +60,9 @@ const ProjectUser = () => {
         setShowEditModal(true);
     };
 
+    const handleVerProyecto = (id) => {
+        navigate(`/proyecto/${id}`); // Navega a la vista del proyecto con el ID
+    };
     // Paginación: Calcular índices de proyectos por página
     const indexOfLastProject = currentPage * projectsPerPage;
     const indexOfFirstProject = indexOfLastProject - projectsPerPage;
@@ -100,8 +105,9 @@ const ProjectUser = () => {
                                                 <td>{proyecto.fecha_fin}</td>
                                                 <td>{proyecto.estado}</td>
                                                 <td>
-                                                    <button className="view">Ver Proyecto</button>
-                                                    <button onClick={() => handleEditClick(proyecto)}>Actualizar</button>
+                                                <button className="view" onClick={() => handleVerProyecto(proyecto.id)}>
+                                                    Ver Proyecto
+                                                </button>                                                    <button onClick={() => handleEditClick(proyecto)}>Actualizar</button>
                                                     <button className="alert" onClick={() => handleEliminar(proyecto.id)}>Eliminar</button>
                                                 </td>
                                             </tr>
