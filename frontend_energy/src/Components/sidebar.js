@@ -31,7 +31,6 @@ const Sidebar = () => {
     return (
         <div>
             <nav className={`sidebar ${isOpen ? 'show' : ''}`}>
-                <header>Menu</header>
                 <div className="sidebar-nav">
                     <ul>
                         <li>

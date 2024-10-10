@@ -1,0 +1,156 @@
+/* Container for the projects section */
+.container-projects {
+    padding: 20px;
+    background-color: #F2F4F7; /* Fondo suave */
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+}
+
+/* Main content area */
+.main-content {
+    /*max-width: 800px; /* Limitar el ancho máximo */
+    margin: 0 auto; /* Centrar el contenido */
+}
+
+/* Title styles */
+h2 {
+    color: #343A40; /* Texto oscuro */
+    margin-bottom: 20px;
+    text-align: center; /* Centrar el título */
+}
+
+/* Button container */
+.botones {
+    display: flex;
+    /*justify-content: center;  Centrar los botones */
+    margin-bottom: 20px;
+    width: auto;
+}
+
+/* Button styles */
+button {
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    margin: 0 10px; /* Espaciado entre botones */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Transiciones suaves */
+}
+
+/* Botón para crear un nuevo proyecto */
+button.create {
+    width: auto;
+    background-color: #007BFF; /* Azul */
+}
+
+button.create:hover {
+    background-color: #0056b3; /* Azul más oscuro al pasar el mouse */
+}
+
+/* Button styles for viewing and deleting projects */
+button.view {
+    background-color: #28A745; /* Verde para ver proyecto */
+}
+
+button.view:hover {
+    background-color: #218838; /* Verde más oscuro al pasar el mouse */
+}
+
+button.alert {
+    background-color: #DC3545; /* Rojo para eliminar */
+}
+
+button.alert:hover {
+    background-color: #c82333; /* Rojo más oscuro al pasar el mouse */
+}
+
+/* Table container styles */
+.table-container-accounts {
+    overflow-x: auto; /* Permitir desplazamiento horizontal si es necesario */
+}
+
+/* Table styles */
+table {
+    width: 100%;
+    border-collapse: collapse; /* Colapsar bordes */
+    margin-top: 10px; /* Espaciado superior */
+    border-radius: 8px; /* Esquinas redondeadas */
+    overflow: hidden; /* Ocultar el desbordamiento */
+    font-size: 1em; /* Tamaño de fuente de la tabla */
+}
+
+th, td {
+    padding: 15px; /* Espaciado interno */
+    text-align: left; /* Alinear texto a la izquierda */
+    border-bottom: 1px solid #ddd; /* Línea inferior en celdas */
+}
+
+th {
+    background-color: #6C757D; /* Gris oscuro para encabezados */
+    color: #fff; /* Texto blanco */
+}
+
+/* Alternating row colors */
+tbody tr:nth-child(even) {
+    background-color: #E9ECEF; /* Color de fondo para filas pares */
+}
+
+tbody tr:hover {
+    background-color: rgba(0, 123, 255, 0.1); /* Resaltar fila al pasar el mouse */
+}
+
+/* Message for no projects */
+p {
+    color: #6C757D; /* Texto gris oscuro */
+    text-align: center; /* Centrar texto */
+    margin-top: 20px; /* Espaciado superior */
+}
+
+/* Button styles for editing projects */
+td button.edit {
+    background-color: #007BFF; /* Azul para editar */
+}
+
+td button.edit:hover {
+    background-color: #0056b3; /* Azul más oscuro al pasar el mouse */
+}
+
+/* Add space between buttons in the actions column */
+td button {
+    width: auto;
+    margin-right: 10px; /* Espaciado entre botones */
+}
+
+
+/* Paginación */
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.pagination button {
+    background-color: #f2f2f2;
+    border: none;
+    padding: 10px 15px;
+    margin: 0 5px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    width: auto;
+}
+
+.pagination button:hover {
+    background-color: #007bff;
+    color: white;
+}
+
+.pagination button.active {
+    background-color: #007bff;
+    color: white;
+    pointer-events: none;
+}

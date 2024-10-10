@@ -2,24 +2,24 @@
 .sidebar {
     position: fixed;
     top: 0;
-    left: -250px; /* Hidden by default */
-    width: 250px;
-    height: 100%;
-    background-color: #19222a;
-    color: #fff;
+    left: 0; /* Posición a la izquierda */
+    width: 100%; /* Ocupa todo el ancho */
+    height: 5%; /* Consume el 10% de la altura */
+    background-color: #A8D08D;
+    color: #333333;
     overflow-x: hidden;
-    transition: left 0.3s ease;
-    padding-top: 60px;
+    transition: top 0.3s ease;
+    padding-top: 10px; /* Ajusta el padding según sea necesario */
     z-index: 1000;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .sidebar.show {
-    left: 0; /* Show sidebar */
+    top: 0; /* Mostrar el sidebar */
 }
 
 .sidebar.hover {
-    left: 0; /* Show sidebar on hover */
+    top: 0; /* Mostrar el sidebar al pasar el ratón */
 }
 
 .sidebar header {
@@ -31,26 +31,29 @@
 }
 
 .sidebar-nav {
-    height: calc(100% - 60px); /* Adjust height to exclude header */
+    /*height: calc(100% - 60px);  Ajustar altura para excluir el encabezado */
     overflow: auto;
+    height: 100%;
 }
 
 .sidebar-nav ul {
     list-style: none;
     padding: 0;
     margin: 0;
+    display: flex; /* Flexbox para los elementos en línea */
+    flex-direction: row-reverse; /* Disposición horizontal */
 }
 
 .sidebar-nav ul li {
-    width: 100%;
+    width: auto; /* Auto para permitir el ajuste */
 }
 
 .sidebar-nav ul li a {
-    color: rgba(255, 255, 255, 0.9);
+    color: #333333;
     text-decoration: none;
     display: block;
-    padding: 1.05em 1em;
-    font-size: 0.75em;
+    padding: 2px 1em;
+    font-size: 19px;
     position: relative;
 }
 
@@ -69,9 +72,9 @@
     position: absolute;
     background-color: #080d11;
     z-index: 9;
-    left: 100%;
-    top: 0;
-    height: 100%;
+    left: 0; /* Ajustar para que aparezca en la parte superior */
+    top: 100%; /* Aparecer debajo del menú */
+    height: auto; /* Ajustar según el contenido */
     width: 100%;
     display: none;
 }
@@ -91,7 +94,7 @@
 
 /* Button Styles */
 .sidebar-button {
-    display: none;
+    display: none; /* Oculto por defecto en pantallas grandes */
 }
 
 /* Estilos del botón del sidebar */
@@ -113,6 +116,7 @@
     align-items: center;
     justify-content: center;
 }
+
 .sidebar-button:hover,
 .sidebar-button:focus {
     background-color: rgba(255, 255, 255, 0.5); /* Más visible al pasar el ratón */
@@ -132,7 +136,7 @@
 /* Responsive Styles */
 @media (max-width: 768px) {
     .sidebar {
-        width: 200px;
+        height: 10%; /* Mantener el 10% de altura en pantallas pequeñas */
     }
 
     .sidebar-button {
@@ -145,7 +149,7 @@
 /* Hover effect for larger screens */
 @media (min-width: 769px) {
     .sidebar {
-        left: 0; /* Show sidebar by default on larger screens */
+        top: 0; /* Mostrar sidebar por defecto en pantallas grandes */
     }
 
     .sidebar-button {
