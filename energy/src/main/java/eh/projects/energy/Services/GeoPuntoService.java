@@ -2,6 +2,7 @@ package eh.projects.energy.Services;
 
 import eh.projects.energy.Entitys.Geopunto;
 import eh.projects.energy.Entitys.Proyecto;
+import eh.projects.energy.Entitys.Usuario;
 import eh.projects.energy.Objects.GeoPuntoDTO;
 import eh.projects.energy.Repositories.GeoPuntoRepository;
 import eh.projects.energy.Repositories.ProyectoRepository;
@@ -35,6 +36,11 @@ public class GeoPuntoService {
         return geopuntos.stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
+    public List<GeoPuntoDTO> getAllPerProyecto(Long id){
+        List<Geopunto> geopuntos = geoPuntoRepository.findByProyectoId(id);
+        return geopuntos.stream().map(this::convertToDTO).collect(Collectors.toList());
+    }
+
     public Optional<GeoPuntoDTO> getPerID(Long id) {
         Optional<Geopunto> geopuntos =geoPuntoRepository.findById(id);
         return geopuntos.map(this::convertToDTO);
@@ -47,6 +53,8 @@ public class GeoPuntoService {
         geoPunto.setLatitud(dto.getLatitud());
         geoPunto.setLongitud(dto.getLongitud());
         geoPunto.setDescripcion(dto.getDescripcion());
+        geoPunto.setProyecto(proyecto);
+
 
         // Convertir las coordenadas geográficas a UTM
         ProjCoordinate coordenadasUTM = coordenadaService.convertirGeograficaAUTM(dto.getLatitud(), dto.getLongitud());

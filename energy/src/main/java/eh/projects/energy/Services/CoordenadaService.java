@@ -18,7 +18,7 @@ public class CoordenadaService {
         // Crear el sistema de referencia geográfica y el de UTM
         CRSFactory crsFactory = new CRSFactory();
         CoordinateReferenceSystem geoCRS = crsFactory.createFromName("EPSG:4326"); // WGS84
-        CoordinateReferenceSystem utmCRS = crsFactory.createFromName("EPSG:32633"); // UTM Zona 33N, ajusta el código para tu zona específica
+        CoordinateReferenceSystem utmCRS = crsFactory.createFromName("EPSG:32616"); // UTM Zona 33N, ajusta el código para tu zona específica
 
         CoordinateTransformFactory ctFactory = new CoordinateTransformFactory();
         transform = ctFactory.createTransform(geoCRS, utmCRS);
