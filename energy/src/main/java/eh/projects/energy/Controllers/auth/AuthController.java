@@ -8,6 +8,8 @@ import eh.projects.energy.Services.UsuarioServicio;
 import eh.projects.energy.Services.UsuarioServicioImpl;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +26,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
 public class AuthController {
+
+    private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
+
     @Autowired
     private AuthenticationManager authenticationManager;
 
@@ -75,9 +80,11 @@ public class AuthController {
             return ResponseEntity.ok(new JwtResponse(jwt));
         } catch (BadCredentialsException e) {
             // Manejo de excepción para credenciales incorrectas
+            logger.info(String.valueOf(e));
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Usuario o contraseña incorrectos");
         } catch (Exception e) {
             // Manejo de otras excepciones
+            logger.info(String.valueOf(e));
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error en el servidor: " + e.getMessage());
         }
     }

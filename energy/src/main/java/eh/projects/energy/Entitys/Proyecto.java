@@ -23,7 +23,7 @@ public class Proyecto {
 
     @ManyToOne
     @JoinColumn(name = "responsable_id", nullable = false)
-    private Usuario responable;
+    private Usuario responsable;
 
     public Long getId() {
         return id;
@@ -74,21 +74,21 @@ public class Proyecto {
     }
 
     public Usuario getResponable() {
-        return responable;
+        return responsable;
     }
 
-    public void setResponable(Usuario responable) {
-        this.responable = responable;
+    public void setResponable(Usuario responsable) {
+        this.responsable = responsable;
     }
 
-    public Proyecto(Long id, String nombre, String descripcion, LocalDate fecha_inicio, LocalDate fecha_fin, String estado, Usuario responable) {
+    public Proyecto(Long id, String nombre, String descripcion, LocalDate fecha_inicio, LocalDate fecha_fin, String estado, Usuario responsable) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.fecha_inicio = fecha_inicio;
         this.fecha_fin = fecha_fin;
         this.estado = estado;
-        this.responable = responable;
+        this.responsable = responsable;
     }
 
     public Proyecto() {

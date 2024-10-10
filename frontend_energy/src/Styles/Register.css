@@ -1,0 +1,234 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css');
+
+body {
+    background-color: #1a1a2e;
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh; /* Cambiado de height a min-height */
+    overflow: hidden;
+}
+
+.register-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    max-width: 100%; /* Ajustado para hacerlo más ancho */
+    width: 100%;
+    height: 715px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
+    box-sizing: border-box;
+    padding: 30px 20px;
+    color: #ffffff;
+  
+}
+
+.register-container h2 {
+    font-size: 26px;
+    font-weight: 600;
+    line-height: 32px;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #ff6347;
+}
+
+.form-div{
+  width: 100%;
+  max-width: 100%;
+  background-color: rgba(255,255,255,0.1);
+  border-radius: 10px;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255,255,255,0.2);
+  box-shadow: 0 0 40px rgba(8,7,16,0.6);
+  padding: 30px 20px;
+  box-sizing: border-box;
+}
+
+.form-section {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    width: 100%;
+}
+
+.user-data, .personal-data {
+    width: 48%;
+}
+
+.user-data h3, .personal-data h3 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #28b1c3;
+}
+
+.label-contrast{
+  color: #598586;
+}
+
+#options-genre {
+  background-color: #6b6b78;
+}
+
+input, select, input[type="number"] {
+  display: block;
+  height: 40px;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
+  padding: 0 10px;
+  margin-top: 8px;
+  font-size: 14px;
+  font-weight: 300;
+  color: #ffffff;
+  border: none;
+}
+
+input:focus, select:focus {
+    border: 2px solid #ff6347;
+    outline: none;
+}
+
+::placeholder {
+    color: #e5e5e5;
+}
+
+button {
+    width: 100%;
+    background-color: #328acd;
+    color: #080710;
+    padding: 15px 0;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 5px;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #ff4500;
+}
+
+.form-buttons {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    margin-top: -25px;
+}
+
+.back-button {
+    background-color: #6c757d;
+}
+
+.back-button:hover {
+    background-color: #5a6268;
+}
+
+.error-message, .success-message {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.error-message {
+    color: #ff6b6b;
+}
+
+.success-message {
+    color: #32cd32;
+}
+@media (max-width: 768px) {
+  .form-section {
+      flex-direction: column;
+      height: auto; /* Ajusta la altura para que se adapte al contenido */
+      margin-bottom: 20px; /* Añade un margen inferior para separar del form-buttons */
+  }
+  
+  .form-div {
+      width: 100%;
+      height: auto; /* Deja que la altura se ajuste automáticamente */
+  }
+
+  .user-data, .personal-data {
+      width: 100%;
+      height: auto; /* Deja que la altura se ajuste automáticamente */
+  }
+
+  .form-buttons {
+      flex-direction: column;
+      gap: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .register-container {
+    font-size: 16px; /* Ajusta el tamaño de la fuente para que sea legible en pantallas pequeñas */
+    font-weight: 400; /* Ajusta el peso de la fuente para mejor legibilidad */
+    line-height: 24px; /* Ajusta el interlineado para un mejor ajuste */
+    text-align: center;
+    margin: 0 10px; /* Añade márgenes laterales para evitar que el contenido se pegue a los bordes */
+    color: #ff6347;
+    padding: 20px; /* Añade un poco de relleno alrededor del contenedor */
+    box-sizing: border-box; /* Asegura que el padding se incluya en el cálculo del ancho total */
+    min-height: 100vh; /* Asegura que el contenedor ocupe al menos el 100% de la altura de la pantalla */
+    overflow: auto; /* Permite el desplazamiento si es necesario */
+  }
+
+  .form-div {
+    width: 100%;
+    max-width: 100%; /* Asegura que el ancho máximo no cause desbordamiento */
+    background-color: rgba(255,255,255,0.1);
+    border-radius: 10px;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255,255,255,0.2);
+    box-shadow: 0 0 20px rgba(8,7,16,0.6); /* Reduce el tamaño del sombreado para pantallas pequeñas */
+    padding: 20px; /* Ajusta el relleno para mejor ajuste en pantallas pequeñas */
+    box-sizing: border-box; /* Asegura que el padding se incluya en el cálculo del ancho total */
+    margin: 0 auto; /* Centra el contenedor horizontalmente */
+    overflow: auto; /* Permite el desplazamiento si el contenido es demasiado grande */
+  }
+
+  .form-section {
+    flex-direction: column;
+    height: auto; /* Ajusta la altura para que se adapte al contenido */
+    margin-bottom: 20px; /* Añade un margen inferior para separar del form-buttons */
+    gap: 15px; /* Ajusta el espacio entre elementos */
+    width: 100%; /* Asegura que el ancho del contenedor ocupe el 100% del contenedor padre */
+    box-sizing: border-box; /* Asegura que el padding y el borde se incluyan en el cálculo del ancho total */
+  }
+
+  .user-data, .personal-data {
+    width: 100%; /* Asegura que estos divs ocupen el ancho completo del contenedor padre */
+    height: auto; /* Deja que la altura se ajuste automáticamente */
+    box-sizing: border-box; /* Asegura que el padding y el borde se incluyan en el cálculo del ancho total */
+  }
+
+  .user-data h3, .personal-data h3 {
+    font-size: 18px; /* Ajusta el tamaño de la fuente */
+    font-weight: 500; /* Ajusta el peso de la fuente */
+    margin-bottom: 10px; /* Reduce el margen inferior para un mejor ajuste */
+    color: #28b1c3;
+  }
+
+  .form-buttons {
+    flex-direction: column;
+    gap: 10px; /* Ajusta el espacio entre los botones */
+    height: auto; /* Asegura que los botones se adapten al contenido */
+    width: 100%; /* Asegura que los botones ocupen el ancho completo del contenedor */
+    box-sizing: border-box; /* Asegura que el padding se incluya en el cálculo del ancho total */
+  }
+}
+
+

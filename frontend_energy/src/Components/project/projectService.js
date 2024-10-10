@@ -10,20 +10,21 @@ export const getHeaders = (token) => ({
     }
   });
 
-export const obtenerProyectosPorUsuario = async (id, token) => {
+  export const obtenerProyectosPorUsuario = async (email, token) => {
     try {
-        const response = await axios.get(`${API_URL}/proyectos/userProjects/${{id}}`, {
+        const response = await axios.get(`${API_URL}/proyectos/responsable/${encodeURIComponent(email)}`, {
             headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json',
             },
         });
-        return response.data
+        return response.data;
     } catch (error) {
         console.error('Error al obtener los proyectos', error);
         throw error;
     }
 };
+
 
 export const obtenerProyectoPorId = async (id, token) => {
     try{
@@ -42,7 +43,7 @@ export const obtenerProyectoPorId = async (id, token) => {
 
 export const crearProyecto = async (email, proyectoDTO, token) => {
     try {
-        const response = await axios.post(`${API_URL}/proyectos?email=${email}`, proyectoDTO, getHeaders(token));
+        const response = await axios.post(`${API_URL}/proyectos?email=${encodeURIComponent(email)}`, proyectoDTO, getHeaders(token));
         return response.data;
     } catch (error){
         throw error.response.data || 'Error al crear un nuevo proyecto'

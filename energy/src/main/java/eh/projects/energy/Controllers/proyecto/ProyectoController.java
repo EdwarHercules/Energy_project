@@ -31,12 +31,22 @@ public class ProyectoController {
         return proyectoDTOS.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    // Endpoint para conseguir los proyectos de un usuario
+    @GetMapping("/responsable/{email}")
+    public ResponseEntity<List<ProyectoDTO>> getProyectosByResponsable(@PathVariable String email) {
+        List<ProyectoDTO> proyectos = proyectoService.getAllByResponsable(email);
+        if (proyectos.isEmpty()) {
+            return ResponseEntity.noContent().build(); // 204 No Content si no hay proyectos
+        }
+        return ResponseEntity.ok(proyectos); // 200 OK con la lista de proyectos
+    }
+
     // Endpoint para crear un proyecto nuevo
     @PostMapping
     public ResponseEntity<ProyectoDTO> createNewObject(@RequestParam String email, @RequestBody ProyectoDTO proyectoDTO){
         try{
             ProyectoDTO newProject = proyectoService.crearProyectoNuevoPorUsuario(email, proyectoDTO);
-            return new ResponseEntity<>(newProject, HttpStatus.OK);
+            return new ResponseEntity<>(newProject, HttpStatus.CREATED);
         } catch (Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }

@@ -5,11 +5,13 @@ import eh.projects.energy.Entitys.Proyecto;
 import eh.projects.energy.Objects.GeoPuntoDTO;
 import eh.projects.energy.Repositories.GeoPuntoRepository;
 import eh.projects.energy.Repositories.ProyectoRepository;
+import org.locationtech.proj4j.ProjCoordinate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -48,8 +50,8 @@ public class GeoPuntoService {
 
         // Convertir las coordenadas geográficas a UTM
         ProjCoordinate coordenadasUTM = coordenadaService.convertirGeograficaAUTM(dto.getLatitud(), dto.getLongitud());
-        geoPunto.setUtm_x(coordenadasUTM.x);
-        geoPunto.setUtm_y(coordenadasUTM.y);
+        geoPunto.setUtm_x(BigDecimal.valueOf(coordenadasUTM.x));
+        geoPunto.setUtm_y(BigDecimal.valueOf(coordenadasUTM.y));
 
         Geopunto savedGeoPunto = geoPuntoRepository.save(geoPunto);
 
@@ -71,7 +73,6 @@ public class GeoPuntoService {
         }
     }
 
-}
 
     public void deleteId(Long id) {
         geoPuntoRepository.deleteById(id);

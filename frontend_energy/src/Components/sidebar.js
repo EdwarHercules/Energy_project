@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import './Styles/Sidebar.css';
+import '../Styles/Sidebar.css';
 import { HomeIcon } from '@heroicons/react/24/solid';
 
 const Sidebar = () => {
@@ -40,7 +40,9 @@ const Sidebar = () => {
                         <li>
                             <Link to="/perfil" onClick={closeSidebar}><i className="ion-ios-person-outline"></i> Perfil</Link>
                         </li>
-
+                        <li>
+                            <Link to="/proyectos" onClick={closeSidebar}><i className="ion-ios-person-outline"></i> Proyectos</Link>
+                        </li>
                         <li>
                             <Link to="/" onClick={closeSidebar}><i className="ion-ios-card-outline"></i> Log in</Link>
                         </li>

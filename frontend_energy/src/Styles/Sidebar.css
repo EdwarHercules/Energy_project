@@ -1,0 +1,154 @@
+/* Sidebar Styles */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -250px; /* Hidden by default */
+    width: 250px;
+    height: 100%;
+    background-color: #19222a;
+    color: #fff;
+    overflow-x: hidden;
+    transition: left 0.3s ease;
+    padding-top: 60px;
+    z-index: 1000;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.sidebar.show {
+    left: 0; /* Show sidebar */
+}
+
+.sidebar.hover {
+    left: 0; /* Show sidebar on hover */
+}
+
+.sidebar header {
+    background-color: #09f;
+    padding: 0.75em 1em;
+    font-size: 1.2em;
+    color: #fff;
+    text-align: center;
+}
+
+.sidebar-nav {
+    height: calc(100% - 60px); /* Adjust height to exclude header */
+    overflow: auto;
+}
+
+.sidebar-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar-nav ul li {
+    width: 100%;
+}
+
+.sidebar-nav ul li a {
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+    display: block;
+    padding: 1.05em 1em;
+    font-size: 0.75em;
+    position: relative;
+}
+
+.sidebar-nav ul li a:hover {
+    background-color: rgba(0, 0, 0, 0.9);
+    transition: background-color 0.6s ease;
+}
+
+.sidebar-nav ul li a i {
+    font-size: 1.8em;
+    padding-right: 0.5em;
+    vertical-align: middle;
+}
+
+.nav-flyout {
+    position: absolute;
+    background-color: #080d11;
+    z-index: 9;
+    left: 100%;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    display: none;
+}
+
+.sidebar-nav ul li:hover .nav-flyout {
+    display: block;
+    transition: transform 0.5s ease;
+}
+
+.nav-flyout a {
+    padding: 1em;
+}
+
+.nav-flyout a:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Button Styles */
+.sidebar-button {
+    display: none;
+}
+
+/* Estilos del botón del sidebar */
+.sidebar-button {
+    display: none; /* Oculto por defecto en pantallas grandes */
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    width: 40px;
+    height: 40px;
+    background-color: rgba(255, 255, 255, 0.2); /* Transparente por defecto */
+    border: none;
+    border-radius: 10px; /* Bordes esquineados */
+    cursor: pointer;
+    z-index: 1001;
+    transition: background-color 0.3s, transform 0.3s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.sidebar-button:hover,
+.sidebar-button:focus {
+    background-color: rgba(255, 255, 255, 0.5); /* Más visible al pasar el ratón */
+    transform: scale(1.05); /* Efecto de agrandamiento */
+}
+
+.sidebar-button .heroicon {
+    color: #fff; /* Color del ícono */
+    transition: color 0.3s; /* Transición para el color */
+}
+
+.sidebar-button:hover .heroicon,
+.sidebar-button:focus .heroicon {
+    color: #000; /* Color del ícono al pasar el ratón */
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 200px;
+    }
+
+    .sidebar-button {
+        display: flex;
+        left: 1%;
+        top: -3%;
+    }
+}
+
+/* Hover effect for larger screens */
+@media (min-width: 769px) {
+    .sidebar {
+        left: 0; /* Show sidebar by default on larger screens */
+    }
+
+    .sidebar-button {
+        display: none;
+    }
+}

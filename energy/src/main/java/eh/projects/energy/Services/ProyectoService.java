@@ -46,6 +46,12 @@ public class ProyectoService {
         return proyectos.stream().map(this::convertirDTO).collect(Collectors.toList());
     }
 
+    public List<ProyectoDTO> getAllByResponsable(String email) {
+        Usuario usuario = usuarioRepository.findByEmail(email);
+        Long id = usuario.getId();
+        List<Proyecto> proyectos = proyectoRepository.findByResponsableId(id);
+        return proyectos.stream().map(this::convertirDTO).collect(Collectors.toList());
+    }
     public Optional<ProyectoDTO> getPerID(Long id) {
         Optional <Proyecto> proyecto =proyectoRepository.findById(id);
         return proyecto.map(this::convertirDTO);
@@ -62,7 +68,6 @@ public class ProyectoService {
             proyecto.setEstado(proyectoDTOUpdate.getEstado());
             proyecto.setFecha_inicio(proyectoDTOUpdate.getFecha_inicio());
             proyecto.setFecha_fin(proyecto.getFecha_fin());
-            proyecto.setResponable(proyectoDTOUpdate.getResponsable());
 
             Proyecto updateProyecto = proyectoRepository.save(proyecto);
 

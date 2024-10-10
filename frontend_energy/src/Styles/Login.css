@@ -1,0 +1,265 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css');
+
+body {
+    background-color: #1a1a2e;
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.register-info{
+  color:#dcdcdc
+}
+
+.register-button{
+  color:#161515
+}
+
+.background {
+    width: 100%;
+    max-width: 430px;
+    height: auto;
+    padding: 20px;
+    position: relative;
+    transform: translate(-20px, -0px);
+}
+
+.background .shape {
+    height: 150px;
+    width: 150px;
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(30px);
+}
+
+.shape:first-child {
+    background: linear-gradient(
+        #ff6347,
+        #ff4500
+    );
+    left: -85px;
+    top: -50px;
+}
+
+.shape:nth-child(2) {
+    background: linear-gradient(
+        to right,
+        #28b1c3,
+        #28b1c3
+    );
+    right: -85px;
+    bottom: -50px;
+}
+
+form {
+    width: 100%;
+    max-width: 400px;
+    background-color: rgba(255,255,255,0.1);
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255,255,255,0.2);
+    box-shadow: 0 0 40px rgba(8,7,16,0.6);
+    padding: 30px 20px;
+    box-sizing: border-box;
+}
+
+form * {
+    font-family: 'Poppins', sans-serif;
+    color: #ffffff;
+    letter-spacing: 0.5px;
+    outline: none;
+    border: none;
+}
+
+form h3 {
+    font-size: 26px;
+    font-weight: 600;
+    line-height: 32px;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #ff6347;
+}
+
+form h4 {
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 24px;
+    text-align: center;
+    color: #dcdcdc;
+    margin-bottom: 30px;
+}
+
+label {
+    display: block;
+    margin-top: 15px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+input {
+    display: block;
+    height: 40px;
+    width: 100%;
+    background-color: rgba(255,255,255,0.2);
+    border-radius: 3px;
+    padding: 0 10px;
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: 300;
+}
+
+::placeholder {
+    color: #e5e5e5;
+}
+
+button {
+    margin-top: 30px;
+    width: 100%;
+    background-color: #328acd;
+    color: #080710;
+    padding: 15px 0;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.social {
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.social div {
+    width: 100px;
+    padding: 5px 0;
+    border-radius: 3px;
+    background-color: rgba(255,255,255,0.3);
+    color: #ffffff;
+    text-align: center;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.social div:hover {
+    background-color: rgba(255,255,255,0.5);
+}
+
+.social .go {
+    background-color: #ea4335;
+}
+
+.social .fb {
+    background-color: #4267B2;
+}
+
+.social .cred {
+    background-color: #32cd32;
+}
+
+.social i {
+    margin-right: 8px;
+}
+
+.error-message {
+    color: #ff6b6b;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.form-title {
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #ffffff;
+}
+
+.form-subtitle {
+    text-align: center;
+    font-size: 14px;
+    color: #dcdcdc;
+    margin-bottom: 20px;
+}
+
+/* Media Queries */
+@media screen and (max-width: 768px) {
+  body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      height: 100vh;
+  }
+
+  form {
+      width: 90%;
+      max-width: 400px;
+      padding: 25px 15px;
+      margin: 0 auto;
+  }
+  
+  form h3 {
+      font-size: 22px;
+      line-height: 28px;
+  }
+
+  .shape:first-child {
+      height: 100px;
+      width: 100px;
+      left: -40px;
+      top: -40px;
+  }
+
+  .shape:last-child {
+      height: 100px;
+      width: 100px;
+      right: -20px;
+      bottom: -40px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      height: 100vh;
+  }
+
+  form {
+      width: 100%;
+      max-width: 360px;
+      padding: 20px 10px;
+      margin: 0 auto;
+  }
+
+  form h3 {
+      font-size: 20px;
+  }
+
+  form h4 {
+      font-size: 14px;
+      margin-bottom: 20px;
+  }
+
+  .social div {
+      width: 100px;
+      padding: 5px 0;
+  }
+
+  .shape:first-child,
+  .shape:last-child {
+      display: none;
+  }
+}

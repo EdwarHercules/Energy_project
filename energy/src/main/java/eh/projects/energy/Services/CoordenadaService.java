@@ -25,7 +25,12 @@ public class CoordenadaService {
     }
 
     public ProjCoordinate convertirGeograficaAUTM(BigDecimal latitud, BigDecimal longitud) {
-        ProjCoordinate coordGeografica = new ProjCoordinate(longitud, latitud); // longitud, latitud (orden importante)
+        // Convertir BigDecimal a double
+        double latitudDouble = latitud.doubleValue();
+        double longitudDouble = longitud.doubleValue();
+
+        // Crear coordenadas geográficas con los valores double
+        ProjCoordinate coordGeografica = new ProjCoordinate(longitudDouble, latitudDouble); // longitud, latitud (orden importante)
         ProjCoordinate coordUTM = new ProjCoordinate();
 
         // Realizar la conversión de geográfica a UTM
@@ -33,4 +38,5 @@ public class CoordenadaService {
 
         return coordUTM; // Retorna el valor convertido (x, y en UTM)
     }
+
 }

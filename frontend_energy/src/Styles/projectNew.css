@@ -1,0 +1,74 @@
+.modal {
+    position: absolute; /* Se usa absolute en lugar de fixed para que no bloquee el fondo */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10; /* Asegurarse de que esté por encima del contenido del fondo */
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.modal-content {
+    position: relative;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.modal-buttons button {
+    margin: 5px;
+}
+
+
+form {
+    width: 100%;
+    max-width: 400px;
+    background-color: rgba(255,255,255,0.1);
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255,255,255,0.2);
+    box-shadow: 0 0 40px rgba(8,7,16,0.6);
+    padding: 30px 20px;
+    box-sizing: border-box;
+    color: black;
+}
+
+input, select, input[type="number"] {
+    display: block;
+    height: 40px;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+    padding: 0 10px;
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: 300;
+    color: #000;
+    border: none;
+}
+.modal-content > form:nth-child(3) > div {
+    width: 95%;
+}
+
+textarea {
+    width: 100%; /* Ajusta según sea necesario */
+    height: 150px; /* Ajusta la altura según lo que desees */
+    resize: none; /* Desactiva la posibilidad de redimensionar */
+    overflow-y: auto; /* Activa el scroll vertical si el texto excede el tamaño */
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    line-height: 1.5;
+}
