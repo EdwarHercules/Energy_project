@@ -29,6 +29,16 @@ public class EstructurasService {
         return estructurasDTO.map(this::convertirDTO);
     }
 
+    public List<String> getAllCategorias() {
+        return estructurasRepository.findAllDistinctCategorias();
+    }
+
+
+    public List<EstructurasDTO> getAllEstructurasPerCategoria(String categoria) {
+        List<Estructura> estructuras = estructurasRepository.findByCategoria(categoria);
+        return estructuras.stream().map(this::convertirDTO).collect(Collectors.toList());
+    }
+
     public EstructurasDTO estructuraUpdate (Long id, EstructurasDTO estructuraDTOupdate) {
         //logic for update
         if (estructurasRepository.existsById(id)){
@@ -54,7 +64,8 @@ public class EstructurasService {
         return new EstructurasDTO(
                 estructura.getId(),
                 estructura.getCodigo(),
-                estructura.getNombre()
+                estructura.getNombre(),
+                estructura.getCategoria()
         );
     }
 

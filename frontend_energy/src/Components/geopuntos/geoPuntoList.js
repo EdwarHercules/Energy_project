@@ -3,6 +3,7 @@ import { useAuth } from "../auth/AuthContext";
 import { useParams } from "react-router-dom";
 import { obtenerGeoPuntosPorProyecto, eliminarGeoPunto } from "./geoPuntoService"; 
 import CreateGeoPuntoModal from "./geoPuntoNew";
+import AgregarEstructuraModal from "../estructuras/geoPuntoEstructurasNew";
 import EditGeoPuntoModal from "./geoPuntoEdit";
 
 import "../../Styles/projectUser.css";
@@ -16,6 +17,8 @@ const GeoPuntoUser = () => {
     const [editingGeoPunto, setEditingGeoPunto] = useState(null);
     const [showCreateModal, setShowCreateModal] = useState(false);
     const [showEditModal, setShowEditModal] = useState(false);
+    const [showAgregarEstructuraModal, setShowAgregarEstructuraModal] = useState(false);
+    const [selectedGeoPuntoId, setSelectedGeoPuntoId] = useState(null);
     
     const [currentPage, setCurrentPage] = useState(1);
     const [geoPuntosPerPage] = useState(10); 
@@ -63,6 +66,17 @@ const GeoPuntoUser = () => {
         setShowEditModal(true);
     };
 
+    // Llamar al modal cuando se haga clic en "Agregar Estructura"
+    const handleAgregarEstructuraClick = (geoPuntoId) => {
+        setSelectedGeoPuntoId(geoPuntoId);
+        setShowAgregarEstructuraModal(true);
+    };
+
+    // Cerrar el modal y agregar la estructura
+    const handleAgregarEstructura = (estructura) => {
+        // Aquí puedes llamar a tu backend para agregar la estructura a la tabla geopunto_estructura
+        console.log(`Estructura ${estructura.nombre} agregada al GeoPunto ${selectedGeoPuntoId}`);
+    };
 
     // Paginación: Calcular índices de proyectos por página
     const indexOfLastGeoPunto = currentPage * geoPuntosPerPage;
@@ -106,6 +120,7 @@ const GeoPuntoUser = () => {
                                                 <td>{geoPunto.utm_x}</td>
                                                 <td>{geoPunto.utm_y}</td>
                                                 <td>
+                                                    <button onClick={() => handleAgregarEstructuraClick(geoPunto.id)}>Agregar Estructuras</button>
                                                     <button onClick={() => handleEditClick(geoPunto)}>Editar</button>
                                                     <button className="alert" onClick={() => handleEliminar(geoPunto.id)}>Eliminar</button>
                                                 </td>
@@ -143,6 +158,14 @@ const GeoPuntoUser = () => {
                             geoPuntoId={editingGeoPunto.id}
                             onClose={() => setShowEditModal(false)}
                             onGeoPuntoUpdated={handleGeoPuntoUpdated}
+                        />
+                    )}
+                     
+                    {showAgregarEstructuraModal && (
+                        <AgregarEstructuraModal
+                            onClose={() => setShowAgregarEstructuraModal(false)}
+                            onAgregarEstructura={handleAgregarEstructura}
+                            geoPuntoId={selectedGeoPuntoId}
                         />
                     )}
                 </div>

@@ -30,6 +30,18 @@ public class EstructuraController {
         return dto.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    @GetMapping("/categorias")
+    public ResponseEntity<List<String>> getAllCategorias() {
+        List<String> categorias = estructurasService.getAllCategorias();
+        return new ResponseEntity<>(categorias, HttpStatus.OK);
+    }
+
+    @GetMapping("/estructuras")
+    public ResponseEntity<List<EstructurasDTO>> getAllEstructurasPerCategoria(@RequestParam String categoria){
+        List<EstructurasDTO> dtos = estructurasService.getAllEstructurasPerCategoria(categoria);
+        return new ResponseEntity<>(dtos, HttpStatus.OK);
+    }
+
     // Endpoint para actualizar por id
     @PutMapping("/{id}")
     public ResponseEntity<EstructurasDTO> updateId(@PathVariable("id") Long id, @RequestBody EstructurasDTO dto) {

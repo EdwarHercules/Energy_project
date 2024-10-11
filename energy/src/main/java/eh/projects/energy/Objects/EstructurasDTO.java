@@ -5,6 +5,8 @@ public class EstructurasDTO {
     private String codigo;
     private String nombre;
 
+    private String categoria;
+
     public Long getId() {
         return id;
     }
@@ -29,10 +31,19 @@ public class EstructurasDTO {
         this.nombre = nombre;
     }
 
-    public EstructurasDTO(Long id, String codigo, String nombre) {
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
+
+    public EstructurasDTO(Long id, String codigo, String nombre, String categoria) {
         this.id = id;
         this.codigo = codigo;
         this.nombre = nombre;
+        this.categoria = categoria;
     }
 
     public EstructurasDTO() {
