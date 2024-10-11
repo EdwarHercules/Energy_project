@@ -106,7 +106,7 @@ const GeoPuntoUser = () => {
                                                 <td>{geoPunto.utm_x}</td>
                                                 <td>{geoPunto.utm_y}</td>
                                                 <td>
-                                                    <button onClick={() => handleEditClick(geoPunto)}>Actualizar</button>
+                                                    <button onClick={() => handleEditClick(geoPunto)}>Editar</button>
                                                     <button className="alert" onClick={() => handleEliminar(geoPunto.id)}>Eliminar</button>
                                                 </td>
                                             </tr>

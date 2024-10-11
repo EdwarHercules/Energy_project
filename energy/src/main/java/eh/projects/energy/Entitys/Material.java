@@ -3,7 +3,7 @@ package eh.projects.energy.Entitys;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "Material")
+@Table(name = "material")
 public class Material {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
