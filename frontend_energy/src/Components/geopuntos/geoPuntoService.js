@@ -47,8 +47,8 @@ export const crearGeoPunto = async (id, geoPuntoDTO, token) => {
     try {
         const response = await axios.post(`${API_URL}/geopuntos?id=${id}`, geoPuntoDTO, getHeaders(token));
         return response.data;
-    } catch (error){
-        throw error.response.data || 'Error al crear un nuevo proyecto'
+    } catch (error) {
+        throw error.response.data || 'Error al crear un nuevo geoPunto';
     }
 };
 

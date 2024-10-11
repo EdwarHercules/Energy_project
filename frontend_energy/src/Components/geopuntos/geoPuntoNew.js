@@ -1,33 +1,57 @@
-import React, { useState } from "react";
-import { crearProyecto } from "../project/projectService";
+import React, { useState, useEffect } from "react";
+import { crearGeoPunto } from "./geoPuntoService";
 import { useAuth } from "../auth/AuthContext";
-import "../../Styles/projectNew.css"
+import "../../Styles/projectNew.css";
 
-const CreateProjectModal = ({ onClose, onProjectCreated}) => {
+const CreateGeoPuntoModal = ({ onClose, onGeoPuntoCreated, proyectoId }) => {
     const { authData } = useAuth();
-    const [proyecto, setProyecto] = useState({
-        nombre: '',
+    const [geoPunto, setGeoPunto] = useState({
         descripcion: '',
-        fecha_inicio: '',
-        fecha_fin: '',
-        estado: 'Activo'
+        latitud: '',
+        longitud: ''
     });
     const [error, setError] = useState(null);
 
+    useEffect(() => {
+        // Solicitar la ubicación del usuario
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    setGeoPunto((prev) => ({
+                        ...prev,
+                        latitud: position.coords.latitude,
+                        longitud: position.coords.longitude
+                    }));
+                },
+                (error) => {
+                    setError('No se pudo obtener la ubicación: ' + error.message);
+                }
+            );
+        } else {
+            setError('Geolocalización no es soportada por este navegador.');
+        }
+    }, []); // Solo se ejecuta una vez al montar el componente
+
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        setProyecto({ ...proyecto, [name]: value});
+        setGeoPunto({ ...geoPunto, [name]: value });
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const email = authData.nombre;
-            await crearProyecto(email, proyecto, authData.token);
-            onProjectCreated();
-            onClose();
+            const geoPuntoDTO = {
+                idProyecto: proyectoId,
+                descripcion: geoPunto.descripcion,
+                latitud: geoPunto.latitud,
+                longitud: geoPunto.longitud
+            };
+
+            await crearGeoPunto(proyectoId, geoPuntoDTO, authData.token); // Envía el id del proyecto
+            onGeoPuntoCreated(); // Llama a la función para actualizar la lista
+            onClose(); // Cierra el modal
         } catch (error) {
-            setError('Error al crear el proyecto');
+            setError('Error al crear el geoPunto: ' + (error.response?.data || error.message));
         }
     };
 
@@ -35,38 +59,21 @@ const CreateProjectModal = ({ onClose, onProjectCreated}) => {
         <div className="modal">
             <div className="modal-content">
                 <span className="close" onClick={onClose}>&times;</span>
-                <h2>Crear Nuevo Proyecto</h2>
+                <h2>Crear Nuevo GeoPunto</h2>
                 {error && <p className="error">{error}</p>}
                 <form onSubmit={handleSubmit}>
-                    <div>
-                        <label>Nombre del proyecto</label>
-                        <input type="text" name="nombre" value={proyecto.nombre} onChange={handleInputChange} required/>
-                    </div>
-                    <div>
-                        <label>Descripcion</label>
-                        <textarea name="descripcion" value={proyecto.descripcion} onChange={handleInputChange} required/>
-                    </div>
-                    <div>
-                        <label>Fecha de Inicio</label>
-                        <input type="date" name="fecha_inicio" value={proyecto.fecha_inicio} onChange={handleInputChange} required/>
-                    </div>
-                    <div>
-                        <label>Fecha de Fin</label>
-                        <input type="date" name="fecha_fin" value={proyecto.fecha_fin} onChange={handleInputChange}/>
-                    </div>
-                    <div>
-                    <label>Estado:</label>
-                        <select name="estado" value={proyecto.estado} onChange={handleInputChange}>
-                            <option value="Activo">Activo</option>
-                            <option value="Inactivo">Inactivo</option>
-                        </select>                    
-                    </div>
-                    <button type="submit">Crear Proyecto</button>
-                    <button type="button" onClick={onClose}>Cancelar</button>
+                    <input 
+                        type="text" 
+                        name="descripcion" 
+                        placeholder="Descripción" 
+                        onChange={handleInputChange} 
+                        required 
+                    />
+                    <button type="submit">Crear GeoPunto</button>
                 </form>
             </div>
         </div>
-    )
+    );
 };
 
-export default CreateProjectModal;
+export default CreateGeoPuntoModal;

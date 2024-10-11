@@ -134,6 +134,8 @@ const GeoPuntoUser = () => {
                         <CreateGeoPuntoModal
                             onClose={() => setShowCreateModal(false)}
                             onGeoPuntoCreated={handleGeoPuntoCreated}
+                            proyectoId={id} // Asegúrate de que idDelProyecto sea el ID correcto
+
                         />
                     )}
                     {showEditModal && (
