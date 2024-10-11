@@ -4,7 +4,11 @@
     background-color: #F2F4F7; /* Fondo suave */
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    width: 100%;
+    width: 182vh;
+    left: 11%;
+    position: fixed;
+    height: auto;
+    top: 6%;
 }
 
 /* Main content area */

@@ -8,11 +8,13 @@ export const getHeaders = (token) => ({
       Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
     }
-  });
+});
 
-  export const obtenerGeoPuntosPorProyecto = async (id, token) => {
+
+
+export const obtenerGeoPuntosPorProyecto = async (id, token) => {
     try {
-        const response = await axios.get(`${API_URL}/geopuntos/proyecto/${id}}`, {
+        const response = await axios.get(`${API_URL}/geopuntos/proyecto/${id}`, {
             headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json',

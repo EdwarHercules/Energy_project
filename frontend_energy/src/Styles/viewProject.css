@@ -2,6 +2,7 @@
 .view-project-container {
     display: flex;
     height: 100vh;
+    width: 208vh;
 }
 
 .project-details {

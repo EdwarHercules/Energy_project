@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { actualizarProyecto, obtenerProyectoPorId } from "./projectService";
+import { actualizarProyecto, obtenerProyectoPorId } from "../project/projectService";
 import { useAuth } from "../auth/AuthContext";
 
 const EditProjectModal = ({ onClose, onProjectUpdated, projectId }) => {

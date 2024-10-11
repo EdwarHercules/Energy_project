@@ -60,8 +60,10 @@ const ProjectUser = () => {
         setShowEditModal(true);
     };
 
-    const handleVerProyecto = (id) => {
-        navigate(`/proyecto/${id}`); // Navega a la vista del proyecto con el ID
+    const handleVerProyecto = (proyectoId) => {
+        console.log("Navigating to project with ID:", proyectoId); // Verifica aquí
+
+        navigate(`/proyectos/${proyectoId}/geoPuntos`);
     };
     // Paginación: Calcular índices de proyectos por página
     const indexOfLastProject = currentPage * projectsPerPage;
@@ -107,7 +109,8 @@ const ProjectUser = () => {
                                                 <td>
                                                 <button className="view" onClick={() => handleVerProyecto(proyecto.id)}>
                                                     Ver Proyecto
-                                                </button>                                                    <button onClick={() => handleEditClick(proyecto)}>Actualizar</button>
+                                                </button>                                                   
+                                                <button onClick={() => handleEditClick(proyecto)}>Actualizar</button>
                                                     <button className="alert" onClick={() => handleEliminar(proyecto.id)}>Eliminar</button>
                                                 </td>
                                             </tr>

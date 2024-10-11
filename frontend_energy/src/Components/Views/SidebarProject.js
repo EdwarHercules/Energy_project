@@ -4,7 +4,9 @@ import { HomeIcon } from '@heroicons/react/24/solid';
 import "../../Styles/SidebarProject.css"
 
 
-const SidebarProject = () => {
+const SidebarProject = ( {projectId} ) => {
+    console.log("Received project ID in SidebarProject:", projectId); // Verifica aquí
+
     const [isOpen, setIsOpen] = useState(false);
 
     const toggleSidebar = () => {
@@ -35,16 +37,16 @@ const SidebarProject = () => {
                 <div className="sidebar-nav-project">
                     <ul>
                         <li>
-                            <Link to="/geoPuntos" onClick={closeSidebar}><i className="ion-ios-home-outline"></i> GeoPuntos</Link>
+                            <Link to={`/proyectos/${projectId}/geoPuntos`} onClick={closeSidebar}><i className="ion-ios-home-outline"></i> GeoPuntos</Link>
                         </li>
                         <li>
-                            <Link to="/mapa" onClick={closeSidebar}><i className="ion-ios-person-outline"></i> Mapa</Link>
+                            <Link to={`/proyectos/${projectId}/mapa`} onClick={closeSidebar}><i className="ion-ios-person-outline"></i> Mapa</Link>
                         </li>
                         <li>
-                            <Link to="/estMat" onClick={closeSidebar}><i className="ion-ios-person-outline"></i> Estructuras y Materiales</Link>
+                            <Link to={`/proyectos/${projectId}/estMat`} onClick={closeSidebar}><i className="ion-ios-person-outline"></i> Estructuras y Materiales</Link>
                         </li>
                         <li>
-                            <Link to="/files" onClick={closeSidebar}><i className="ion-ios-card-outline"></i> Archivos de Descarga</Link>
+                            <Link to={`/proyectos/${projectId}/files`} onClick={closeSidebar}><i className="ion-ios-card-outline"></i> Archivos de Descarga</Link>
                         </li>
                     </ul>
                 </div>
@@ -54,6 +56,6 @@ const SidebarProject = () => {
             </button>
         </div>
     );
-}
+};
 
 export default SidebarProject;

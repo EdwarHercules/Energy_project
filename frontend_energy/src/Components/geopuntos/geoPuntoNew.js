@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { crearProyecto } from "./projectService";
+import { crearProyecto } from "../project/projectService";
 import { useAuth } from "../auth/AuthContext";
 import "../../Styles/projectNew.css"
 

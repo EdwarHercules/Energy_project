@@ -1,114 +1,113 @@
 import React, { useState, useEffect } from "react";
 import { useAuth } from "../auth/AuthContext";
-import { useNavigate } from "react-router-dom"; // Importa useNavigate
+import { useParams } from "react-router-dom";
 import { obtenerGeoPuntosPorProyecto, eliminarGeoPunto } from "./geoPuntoService"; 
-import CreateGeoPuntoModal from "./geoPuntotNew";
-import EditGeoPuntoModal from "./geoPuntotEdit";
+import CreateGeoPuntoModal from "./geoPuntoNew";
+import EditGeoPuntoModal from "./geoPuntoEdit";
 
 import "../../Styles/projectUser.css";
 
 const GeoPuntoUser = () => {
+    
     const { authData } = useAuth();
-    const [proyectos, setProyecto] = useState([]);
-    const [editingProyecto, setEditingProyecto] = useState(null);
+    const { id } = useParams(); // Usar useParams para obtener el id del proyecto desde la URL
+
+    const [geoPuntos, setGeoPuntos] = useState([]);
+    const [editingGeoPunto, setEditingGeoPunto] = useState(null);
     const [showCreateModal, setShowCreateModal] = useState(false);
-    const [showEditModal, setShowEditModal] = useState(false); // Para el modal de edición
-    const navigate = useNavigate(); // Crea el hook de navegación
-
-    const [currentPage, setCurrentPage] = useState(1); // Página actual
-    const [projectsPerPage] = useState(10); // Proyectos por página (10)
-
+    const [showEditModal, setShowEditModal] = useState(false);
+    
+    const [currentPage, setCurrentPage] = useState(1);
+    const [geoPuntosPerPage] = useState(10); 
+    
+    console.log("Received project ID in GeoPuntosList:", id); // Verifica aquí
     useEffect(() => {
-        if (authData.token && authData.nombre) {
-            obtenerGeoPuntosPorProyecto(authData.nombre, authData.token)
+        if (authData.token && id) {
+            obtenerGeoPuntosPorProyecto(id, authData.token)
                 .then(data => {
-                    setProyecto(data);
+                    setGeoPuntos(data);
                 })
                 .catch(error => {
-                    console.error('Error al obtener los proyectos', error);
+                    console.error('Error al obtener los geoPuntos', error);
                 });
         }
-    }, [authData.token, authData.nombre]);
+    }, [authData.token, id]);
 
     const handleEliminar = async (id) => {
         try {
             await eliminarGeoPunto(id, authData.token);
-            setProyecto(proyectos.filter(proyecto => proyecto.id !== id));
+            setGeoPuntos(geoPuntos.filter(geoPunto => geoPunto.id !== id));
         } catch (error) {
-            console.error('Error al eliminar el proyecto: ', error);
+            console.error('Error al eliminar el geoPuntos: ', error);
         }
     };
 
     const handleGeoPuntoCreated = () => {
-        if (authData.token && authData.nombre) {
-            obtenerGeoPuntosPorProyecto(authData.nombre, authData.token)
-                .then(data => setProyecto(data))
-                .catch(error => console.error('Error al obtener los proyectos', error));
+        if (authData.token && id) {
+            obtenerGeoPuntosPorProyecto(id, authData.token)
+                .then(data => setGeoPuntos(data))
+                .catch(error => console.error('Error al obtener los geoPuntos', error));
         }
     };
 
-    const handleGeoPuntoUpdated = (proyectoActualizado) => {
-        setProyecto(proyectos.map(proyecto =>
-            proyecto.id === proyectoActualizado.id ? proyectoActualizado : proyecto
+    const handleGeoPuntoUpdated = (geoPuntoActualizado) => {
+        setGeoPuntos(geoPuntos.map(geoPunto =>
+            geoPunto.id === geoPuntoActualizado.id ? geoPuntoActualizado : geoPunto
         ));
-        setEditingProyecto(null);
+        setEditingGeoPunto(null);
         setShowEditModal(false); // Cierra el modal después de actualizar
     };
 
-    const handleEditClick = (proyecto) => {
-        setEditingProyecto(proyecto);
+    const handleEditClick = (geoPunto) => {
+        setEditingGeoPunto(geoPunto);
         setShowEditModal(true);
     };
 
-    const handleVerProyecto = (id) => {
-        navigate(`/proyecto/${id}`); // Navega a la vista del proyecto con el ID
-    };
+
     // Paginación: Calcular índices de proyectos por página
-    const indexOfLastGeoPunto = currentPage * projectsPerPage;
-    const indexOfFirstGeoPunto = indexOfLastGeoPunto - projectsPerPage;
-    const currentGeoPuntos = proyectos.slice(indexOfFirstGeoPunto, indexOfLastGeoPunto);
+    const indexOfLastGeoPunto = currentPage * geoPuntosPerPage;
+    const indexOfFirstGeoPunto = indexOfLastGeoPunto - geoPuntosPerPage;
+    const currentGeoPuntos = geoPuntos.slice(indexOfFirstGeoPunto, indexOfLastGeoPunto);
 
     // Cambiar de página
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
     // Calcular número total de páginas
-    const totalPages = Math.ceil(proyectos.length / projectsPerPage);
+    const totalPages = Math.ceil(geoPuntos.length / geoPuntosPerPage);
 
     return (
         <div className="container-projects">
             {authData.token ? (
                 <div className="main-content">
-                    <h2>Proyectos</h2>
+                    <h2>GeoPuntos del Proyecto</h2>
                     <div className="botones">
-                        <button className="create" onClick={() => setShowCreateModal(true)}>Crear un Proyecto Nuevo</button>
+                        <button className="create" onClick={() => setShowCreateModal(true)}>Crear un GeoPunto Nuevo</button>
                     </div>
-                    {proyectos.length > 0 ? (
+                    {geoPuntos.length > 0 ? (
                         <>
                             <div className="table-container-accounts">
                                 <table>
                                     <thead>
                                         <tr>
-                                            <th>Nombre</th>
-                                            <th>Descripcion</th>
-                                            <th>Fecha de Inicio</th>
-                                            <th>Fecha de Fin</th>
-                                            <th>Estado</th>
+                                            <th>Descripción</th>
+                                            <th>Latitud</th>
+                                            <th>Longitud</th>
+                                            <th>Punto UTM en X</th>
+                                            <th>Punto UTM en Y</th>
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {currentGeoPuntos.map(proyecto => (
-                                            <tr key={proyecto.id}>
-                                                <td>{proyecto.nombre}</td>
-                                                <td>{proyecto.descripcion}</td>
-                                                <td>{proyecto.fecha_inicio}</td>
-                                                <td>{proyecto.fecha_fin}</td>
-                                                <td>{proyecto.estado}</td>
+                                        {currentGeoPuntos.map(geoPunto => (
+                                            <tr key={geoPunto.id}>
+                                                <td>{geoPunto.descripcion}</td>
+                                                <td>{geoPunto.latitud}</td>
+                                                <td>{geoPunto.longitud}</td>
+                                                <td>{geoPunto.utm_x}</td>
+                                                <td>{geoPunto.utm_y}</td>
                                                 <td>
-                                                <button className="view" onClick={() => handleVerProyecto(proyecto.id)}>
-                                                    Ver Proyecto
-                                                </button>                                                    <button onClick={() => handleEditClick(proyecto)}>Actualizar</button>
-                                                    <button className="alert" onClick={() => handleEliminar(proyecto.id)}>Eliminar</button>
+                                                    <button onClick={() => handleEditClick(geoPunto)}>Actualizar</button>
+                                                    <button className="alert" onClick={() => handleEliminar(geoPunto.id)}>Eliminar</button>
                                                 </td>
                                             </tr>
                                         ))}
@@ -116,7 +115,6 @@ const GeoPuntoUser = () => {
                                 </table>
                             </div>
 
-                            {/* Paginación */}
                             <div className="pagination">
                                 {[...Array(totalPages).keys()].map(page => (
                                     <button
@@ -130,7 +128,7 @@ const GeoPuntoUser = () => {
                             </div>
                         </>
                     ) : (
-                        <p>No hay proyectos para este usuario</p>
+                        <p>No hay GeoPuntos para este proyecto</p>
                     )}
                     {showCreateModal && (
                         <CreateGeoPuntoModal
@@ -140,9 +138,9 @@ const GeoPuntoUser = () => {
                     )}
                     {showEditModal && (
                         <EditGeoPuntoModal
-                            projectId={editingProyecto.id} // Pasa el ID del proyecto a editar
+                            geoPuntoId={editingGeoPunto.id}
                             onClose={() => setShowEditModal(false)}
-                            onGeoPuntoUpdated={handleGeoPuntoUpdated} // Callback para cuando se actualiza el proyecto
+                            onGeoPuntoUpdated={handleGeoPuntoUpdated}
                         />
                     )}
                 </div>
@@ -151,6 +149,6 @@ const GeoPuntoUser = () => {
             )}
         </div>
     );
-}
+};
 
 export default GeoPuntoUser;

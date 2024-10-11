@@ -1,12 +1,13 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate , useLocation} from 'react-router-dom';
-import { AuthProvider, useAuth } from './Components/auth/AuthContext'; // Asegúrate de que las rutas sean correctas
+import { AuthProvider, useAuth } from './Components/auth/AuthContext'; 
 import Login from './Components/auth/Login';
-import Register from './Components/auth/Register'; // Importa el componente de registro
+import Register from './Components/auth/Register'; 
 import NotFound from './Pages/NotFound';
-import Sidebar from './Components/sidebar'; // Ajusta la ruta según tu estructura
+import Sidebar from './Components/sidebar'; 
 import Proyectos from './Components/project/projectUser'
-import ViewProject from './Components/Views/viewOneProject';
+import ProjectLayout from './Components/Views/viewOneProject';
+import GeoPuntoUser from './Components/geopuntos/geoPuntoList';
 import './App.css';
 
 const App = () => {
@@ -19,8 +20,10 @@ const App = () => {
             <Route path="/" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path='/proyectos' element={<PrivateRoute><Proyectos/></PrivateRoute>} />
-            <Route path="/proyecto/:id" element={<ViewProject />} /> {/* Nueva ruta para ver el proyecto */}
-            {/* Añade más rutas aquí según sea necesario */}
+            <Route path="/proyectos/:id" element={<PrivateRoute><ProjectLayout /></PrivateRoute>}>
+              <Route path="geoPuntos" element={<GeoPuntoUser />} />
+              {/* Otras rutas dentro de un proyecto */}
+            </Route>
             <Route path="*" element={<Navigate to="/login" />} />
           </Routes>
         </Layout>
@@ -31,18 +34,18 @@ const App = () => {
 
 const Layout = ({ children }) => {
   const { authData } = useAuth();
-  const location = useLocation(); // Obtén la ruta actual
+  const location = useLocation();
 
-  // Verifica si la ruta actual es '/login' o '/register'
+  // Mostrar Sidebar general excepto en login o register
   const shouldShowSidebar = authData.token && !['/', '/register'].includes(location.pathname);
 
   return (
     <div className="main-container">
-            {shouldShowSidebar && <Sidebar />}
-            <div className="content">
-                {children}
-            </div>
-        </div>
+      {shouldShowSidebar && <Sidebar />}
+      <div className="content">
+        {children}
+      </div>
+    </div>
   );
 };
 
