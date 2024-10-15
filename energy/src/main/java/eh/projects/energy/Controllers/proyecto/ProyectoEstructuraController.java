@@ -47,6 +47,12 @@ public class ProyectoEstructuraController {
         }
     }
 
+    @GetMapping("/estructuras/{ProyectoId}")
+    public ResponseEntity<List<ProyectoEstructuraDTO>> getAllPerProyecto(@PathVariable("ProyectoId") Long id){
+        List<ProyectoEstructuraDTO> proyectoEstructuraDTOS = service.getAllPerProyecto(id);
+        return new ResponseEntity<>(proyectoEstructuraDTOS,HttpStatus.OK);
+    }
+
     // Endpoint para actualizar por id
     @PutMapping("/{id}")
     public ResponseEntity<ProyectoEstructuraDTO> updateId(@PathVariable("id") Long id, @RequestBody ProyectoEstructuraDTO dto) {

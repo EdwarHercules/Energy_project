@@ -44,6 +44,11 @@ public class ProyectoEstructuraService {
         return proyectoEstructura.map(this::convertToProyectoEstructuraDTO);
     }
 
+    public List<ProyectoEstructuraDTO> getAllPerProyecto(Long id){
+        List<ProyectoEstructura> proyectoEstructuras = proyectoEstructuraRepository.findByProyectoId(id);
+        return proyectoEstructuras.stream().map(this::convertToProyectoEstructuraDTO).collect(Collectors.toList());
+    }
+
     public ProyectoEstructuraDTO insertarEstructurasPorProyecto(Long  proyectoId, Long estructuraId, ProyectoEstructuraDTO dto) {
         List<EstMat> estMats = estMAtRepository.findByEstructuraId(estructuraId);
 

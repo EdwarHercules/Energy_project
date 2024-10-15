@@ -32,6 +32,28 @@ public class ProyectoMaterialController {
         return dto.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    @GetMapping("/materiales/{proyectoId}")
+    public ResponseEntity<List<ProyectoMaterialDTO>> obtenerTodosLosMaterialesPorProyecto(@PathVariable("proyectoId") Long id){
+        List<ProyectoMaterialDTO> proyectoMaterialDTOS = proyectoMaterialService
+                .getAllPerProyect(id);
+        return new ResponseEntity<>(proyectoMaterialDTOS, HttpStatus.OK);
+    }
+
+    //Endpoint para obtener todos los materiales distintos
+    @GetMapping("/{proyectoId}/materiales/distinctos")
+    public ResponseEntity<List<ProyectoMaterialDTO>> obtenerMaterialesDistinctosPorProyecto(
+            @PathVariable Long proyectoId) {
+        // Llamada al servicio para obtener los materiales distintos por proyecto
+        List<ProyectoMaterialDTO> materialesDistinctos = proyectoMaterialService.getAllDistinctPerProyecto(proyectoId);
+
+        // Retornar el resultado
+        if (materialesDistinctos.isEmpty()) {
+            return ResponseEntity.noContent().build(); // Retornar 204 si no hay materiales
+        }
+
+        return ResponseEntity.ok(materialesDistinctos); // Retornar 200 con la lista de materiales
+    }
+
     // Endpoint para crear un nuevo objeto
     @PostMapping("/{proyectoId}/estructuras/{estructuraId}/materiales")
     public ResponseEntity<?> insertarMaterialesPorEstructuraEnProyecto(
