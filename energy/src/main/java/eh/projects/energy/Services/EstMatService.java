@@ -20,6 +20,11 @@ public class EstMatService {
     private EstMatRepository estMatRepository;
 
 
+    public List<EstMatDTO> getAllPerEstructuras(Long id){
+        List<EstMat> estMats = estMatRepository.findByEstructuraId(id);
+        return estMats.stream().map(this::convertToDTO).collect(Collectors.toList());
+    }
+
     public List<EstMatDTO> getAll() {
         List<EstMat> estMat =estMatRepository.findAll();
         return estMat.stream().map(this::convertToDTO).collect(Collectors.toList());

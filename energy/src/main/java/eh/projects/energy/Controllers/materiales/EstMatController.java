@@ -30,6 +30,13 @@ public class EstMatController {
         return dto.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    // Endpoint para obtener materiales por estructura id
+    @GetMapping("/estructuras")
+    public ResponseEntity<List<EstMatDTO>> getAllPerEstructuraID(@RequestParam Long id) {
+        List<EstMatDTO> dto = estMatService.getAllPerEstructuras(id);
+        return new ResponseEntity<>(dto, HttpStatus.OK);
+    }
+
     // Endpoint para actualizar por id
     @PutMapping("/{id}")
     public ResponseEntity<EstMatDTO> updateId(@PathVariable("id") Long id, @RequestBody EstMatDTO dto) {
