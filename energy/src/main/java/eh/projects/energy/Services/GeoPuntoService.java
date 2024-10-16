@@ -47,26 +47,35 @@ public class GeoPuntoService {
     }
 
     public GeoPuntoDTO crearProyectoNuevoPorUsuario(Long id, GeoPuntoDTO dto) {
-        Proyecto proyecto = proyectorepository.findById(id).orElseThrow(() -> new RuntimeException("No se encontro el proyecto"));
+        Proyecto proyecto = proyectorepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("No se encontró el proyecto"));
 
+        // Obtener todos los GeoPuntos existentes para el proyecto
+        List<Geopunto> puntosExistentes = geoPuntoRepository.findByProyecto(proyecto);
+
+        // Generar el nombre del nuevo GeoPunto
+        String nombreGeoPunto = "P" + (puntosExistentes.size() + 1);
+
+        // Crear nuevo GeoPunto
         Geopunto geoPunto = new Geopunto();
         geoPunto.setLatitud(dto.getLatitud());
         geoPunto.setLongitud(dto.getLongitud());
         geoPunto.setDescripcion(dto.getDescripcion());
         geoPunto.setProyecto(proyecto);
-
+        geoPunto.setNombre(nombreGeoPunto);  // Asignar el nombre al geopunto
 
         // Convertir las coordenadas geográficas a UTM
         ProjCoordinate coordenadasUTM = coordenadaService.convertirGeograficaAUTM(dto.getLatitud(), dto.getLongitud());
         geoPunto.setUtm_x(BigDecimal.valueOf(coordenadasUTM.x));
         geoPunto.setUtm_y(BigDecimal.valueOf(coordenadasUTM.y));
 
+        // Guardar el nuevo GeoPunto
         Geopunto savedGeoPunto = geoPuntoRepository.save(geoPunto);
 
         GeoPuntoDTO responseDTO = convertToDTO(savedGeoPunto);
-
         return responseDTO;
     }
+
 
     public GeoPuntoDTO updateDTO(Long id, GeoPuntoDTO objectDTOupdate) {
         //logic for update
@@ -94,7 +103,8 @@ public class GeoPuntoService {
                 geopunto.getLongitud(),
                 geopunto.getUtm_x(),
                 geopunto.getUtm_y(),
-                geopunto.getDescripcion()
+                geopunto.getDescripcion(),
+                geopunto.getNombre()
         );
     }
 

@@ -4,7 +4,7 @@
     top: 0;
     left: 0; /* Posición a la izquierda */
     width: 100%; /* Ocupa todo el ancho */
-    height: 5%; /* Consume el 10% de la altura */
+    height: 6%; /* Consume el 10% de la altura */
     background-color: #A8D08D;
     color: #333333;
     overflow-x: hidden;
@@ -52,8 +52,8 @@
     color: #333333;
     text-decoration: none;
     display: block;
-    padding: 2px 1em;
-    font-size: 19px;
+    padding: 0px 1em;
+    font-size: 15px;
     position: relative;
 }
 

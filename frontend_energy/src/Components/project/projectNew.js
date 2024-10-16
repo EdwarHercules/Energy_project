@@ -61,8 +61,10 @@ const CreateProjectModal = ({ onClose, onProjectCreated}) => {
                             <option value="Inactivo">Inactivo</option>
                         </select>                    
                     </div>
+                    <div className="acciones">
                     <button type="submit">Crear Proyecto</button>
                     <button type="button" onClick={onClose}>Cancelar</button>
+                    </div>
                 </form>
             </div>
         </div>

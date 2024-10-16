@@ -26,8 +26,8 @@ public class Geopunto {
 
     private String descripcion;
 
-    @OneToMany(mappedBy = "geopunto", cascade = CascadeType.ALL)
-    private List<GeopuntoEstructura> estructuras;
+    private String nombre;
+
 
     public Long getId() {
         return id;
@@ -85,11 +85,26 @@ public class Geopunto {
         this.descripcion = descripcion;
     }
 
-    public List<GeopuntoEstructura> getEstructuras() {
-        return estructuras;
+
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setEstructuras(List<GeopuntoEstructura> estructuras) {
-        this.estructuras = estructuras;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public Geopunto(Long id, Proyecto proyecto, BigDecimal latitud, BigDecimal longitud, BigDecimal utm_x, BigDecimal utm_y, String descripcion, String nombre) {
+        this.id = id;
+        this.proyecto = proyecto;
+        this.latitud = latitud;
+        this.longitud = longitud;
+        this.utm_x = utm_x;
+        this.utm_y = utm_y;
+        this.descripcion = descripcion;
+        this.nombre = nombre;
+    }
+
+    public Geopunto() {
     }
 }

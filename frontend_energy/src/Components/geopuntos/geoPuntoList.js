@@ -103,6 +103,7 @@ const GeoPuntoUser = () => {
                                 <table>
                                     <thead>
                                         <tr>
+                                            <th>Punto</th>
                                             <th>Descripción</th>
                                             <th>Latitud</th>
                                             <th>Longitud</th>
@@ -114,12 +115,13 @@ const GeoPuntoUser = () => {
                                     <tbody>
                                         {currentGeoPuntos.map(geoPunto => (
                                             <tr key={geoPunto.id}>
+                                                <td>{geoPunto.nombre}</td>
                                                 <td>{geoPunto.descripcion}</td>
                                                 <td>{geoPunto.latitud}</td>
                                                 <td>{geoPunto.longitud}</td>
                                                 <td>{geoPunto.utm_x}</td>
                                                 <td>{geoPunto.utm_y}</td>
-                                                <td>
+                                                <td className="butons-puntos">
                                                     <button onClick={() => handleAgregarEstructuraClick(geoPunto.id)}>Agregar Estructuras</button>
                                                     <button onClick={() => handleEditClick(geoPunto)}>Editar</button>
                                                     <button className="alert" onClick={() => handleEliminar(geoPunto.id)}>Eliminar</button>
@@ -166,6 +168,7 @@ const GeoPuntoUser = () => {
                             onClose={() => setShowAgregarEstructuraModal(false)}
                             onAgregarEstructura={handleAgregarEstructura}
                             geoPuntoId={selectedGeoPuntoId}
+                            proyectoId={id}
                         />
                     )}
                 </div>

@@ -1,5 +1,5 @@
 /* Container for the projects section */
-.container-projects {
+.container-projects-user {
     padding: 20px;
     background-color: #F2F4F7; /* Fondo suave */
     border-radius: 8px;
@@ -11,12 +11,12 @@
     overflow-y: auto;
     max-height: 90vh;
     height: auto;
-    margin: 4%17%;
+    margin: 4% 0%;
     left: 13%;
 }
 
 /* Main content area */
-.main-content {
+.main-content-user {
     /*max-width: 800px; /* Limitar el ancho máximo */
     margin: 0 auto; /* Centrar el contenido */
 }
@@ -29,7 +29,7 @@ h2 {
 }
 
 /* Button container */
-.botones {
+.botones-user {
     display: flex;
     /*justify-content: center;  Centrar los botones */
     margin-bottom: 20px;
@@ -59,7 +59,7 @@ button.create:hover {
 }
 
 /* Button styles for viewing and deleting projects */
-button.view {
+button.view-user {
     background-color: #28A745; /* Verde para ver proyecto */
 }
 
@@ -67,7 +67,7 @@ button.view:hover {
     background-color: #218838; /* Verde más oscuro al pasar el mouse */
 }
 
-button.alert {
+button.alert-user {
     background-color: #DC3545; /* Rojo para eliminar */
 }
 
@@ -76,18 +76,18 @@ button.alert:hover {
 }
 
 /* Table container styles */
-.table-container-accounts {
+.table-container-accounts-user {
     overflow-x: auto; /* Permitir desplazamiento horizontal si es necesario */
 }
 
 /* Table styles */
 table {
-    width: 99%;
+    width: 100%;
     border-collapse: collapse; /* Colapsar bordes */
     margin-top: 10px; /* Espaciado superior */
     border-radius: 8px; /* Esquinas redondeadas */
     overflow: hidden; /* Ocultar el desbordamiento */
-    font-size: 13px; /* Tamaño de fuente de la tabla */
+    font-size: 1em; /* Tamaño de fuente de la tabla */
 }
 
 th, td {
@@ -128,9 +128,8 @@ td button.edit:hover {
 
 /* Add space between buttons in the actions column */
 td button {
-    width: 35%;
+    width: auto;
     margin-right: 10px; /* Espaciado entre botones */
-    font-size: 13px;
 }
 
 

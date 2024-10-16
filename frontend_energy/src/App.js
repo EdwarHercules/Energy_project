@@ -8,6 +8,8 @@ import Sidebar from './Components/sidebar';
 import Proyectos from './Components/project/projectUser'
 import ProjectLayout from './Components/Views/viewOneProject';
 import GeoPuntoUser from './Components/geopuntos/geoPuntoList';
+import EstructurasMaterialesProject from './Components/Views/estructurasMateriales';
+import MiVistaDeMapa from './Components/Views/mapaview';
 import './App.css';
 
 const App = () => {
@@ -22,6 +24,8 @@ const App = () => {
             <Route path='/proyectos' element={<PrivateRoute><Proyectos/></PrivateRoute>} />
             <Route path="/proyectos/:id" element={<PrivateRoute><ProjectLayout /></PrivateRoute>}>
               <Route path="geoPuntos" element={<GeoPuntoUser />} />
+              <Route path="estMat" element={<EstructurasMaterialesProject />} />
+              <Route path="mapa" element={<MiVistaDeMapa />} />
               {/* Otras rutas dentro de un proyecto */}
             </Route>
             <Route path="*" element={<Navigate to="/login" />} />

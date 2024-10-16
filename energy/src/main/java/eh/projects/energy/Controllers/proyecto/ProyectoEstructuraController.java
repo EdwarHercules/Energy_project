@@ -35,11 +35,10 @@ public class ProyectoEstructuraController {
     @PostMapping("/{proyectoId}/estructuras/{estructuraId}")
     public ResponseEntity<ProyectoEstructuraDTO> agregarEstructuraAProyecto(
             @PathVariable Long proyectoId,
-            @PathVariable Long estructuraId,
-            @RequestBody ProyectoEstructuraDTO dto) {
+            @PathVariable Long estructuraId) {
 
         try {
-            ProyectoEstructuraDTO nuevoProyectoEstructura = service.insertarEstructurasPorProyecto(proyectoId, estructuraId, dto);
+            ProyectoEstructuraDTO nuevoProyectoEstructura = service.insertarEstructurasPorProyecto(proyectoId, estructuraId);
             return new ResponseEntity<>(nuevoProyectoEstructura, HttpStatus.CREATED);
         } catch (RuntimeException e) {
             // Manejo de errores si no se encuentra el proyecto o la estructura

@@ -56,7 +56,7 @@ public class ProyectoMaterialController {
 
     // Endpoint para crear un nuevo objeto
     @PostMapping("/{proyectoId}/estructuras/{estructuraId}/materiales")
-    public ResponseEntity<?> insertarMaterialesPorEstructuraEnProyecto(
+    public ResponseEntity<ProyectoMaterialDTO> insertarMaterialesPorEstructuraEnProyecto(
             @PathVariable Long proyectoId,
             @PathVariable Long estructuraId,
             @RequestParam String voltaje) {

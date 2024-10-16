@@ -96,30 +96,38 @@ public class ProyectoMaterialService {
 
         ProyectoMaterial saveProyectoMaterial = null;
 
-        for (EstMat estMat: estMats) {
-            ProyectoMaterial proyectoMaterial = new ProyectoMaterial();
+        try {
+            for (EstMat estMat : estMats) {
+                ProyectoMaterial proyectoMaterial = new ProyectoMaterial();
+                proyectoMaterial.setProyecto(proyecto);
+                proyectoMaterial.setMaterial(estMat.getMaterial());
 
-            proyectoMaterial.setProyecto(proyecto);
-            proyectoMaterial.setMaterial(estMat.getMaterial());
+                // Asignar cantidad según el voltaje
+                if ("34kva".equals(voltaje)) {
+                    proyectoMaterial.setCantidad(estMat.getCantidad_mat_34kva());
+                } else if ("13kva".equals(voltaje)) {
+                    proyectoMaterial.setCantidad(estMat.getCantidad_mat_18kva());
+                } else {
+                    proyectoMaterial.setCantidad(estMat.getCantidad_mat());
+                }
 
-            // Asignar cantidad según el voltaje
-            if ("34kva".equals(voltaje)){
-                proyectoMaterial.setCantidad(estMat.getCantidad_mat_34kva());
-            } else if ("13kva".equals(voltaje)) {
-                proyectoMaterial.setCantidad(estMat.getCantidad_mat_18kva());
-            } else {
-                proyectoMaterial.setCantidad(estMat.getCantidad_mat());
+                proyectoMaterial.setUnidad(estMat.getUnidad());
+                logger.info("logro hacer uno");
+                // Guardar el proyectoMaterial
+                saveProyectoMaterial = proyectoMaterialRepository.save(proyectoMaterial);
             }
-
-            proyectoMaterial.setUnidad(estMat.getUnidad());
-
-            // Guardar el proyectoMaterial
-            saveProyectoMaterial = proyectoMaterialRepository.save(proyectoMaterial);
+        } catch (Exception e) {
+            // Log de error completo
+            logger.error("Error al insertar los materiales de la estructura: " + e.getMessage());
+            e.printStackTrace();
+            throw new RuntimeException("Error al insertar los materiales de la estructura", e);
         }
 
+        logger.info(String.valueOf(saveProyectoMaterial));
         // Convertir el último ProyectoMaterial guardado a DTO y devolverlo
         return convertToProyectoMaterialDTO(saveProyectoMaterial);
     }
+
 
     public ProyectoMaterialDTO updateProyectoMaterialDTO(Long id, ProyectoMaterialDTO objectProyectoMaterialDTOupdate) {
         //logic for update

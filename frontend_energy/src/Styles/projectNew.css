@@ -1,5 +1,18 @@
 .modal {
     position: absolute; /* Se usa absolute en lugar de fixed para que no bloquee el fondo */
+    top: 54%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10; /* Asegurarse de que esté por encima del contenido del fondo */
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    height: 85%;
+}
+
+.modal-punto {
+    position: absolute; /* Se usa absolute en lugar de fixed para que no bloquee el fondo */
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -8,6 +21,35 @@
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    height: auto;
+}
+
+
+.modal-estructura-new {
+    position: absolute; /* Se usa absolute en lugar de fixed para que no bloquee el fondo */
+    top: 53%;
+    left: 55%;
+    transform: translate(-50%, -50%);
+    z-index: 10; /* Asegurarse de que esté por encima del contenido del fondo */
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    height: 85%;
+    width: 77%;
+}
+
+.moda-edit-punto{
+    position: absolute;
+    top: 52%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    height: 82%;
 }
 
 .modal-content {
@@ -31,6 +73,21 @@
 }
 
 
+.form-estructura-new {
+    width: 100%;
+    max-width: 400px;
+    background-color: rgba(255,255,255,0.1);
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255,255,255,0.2);
+    box-shadow: 0 0 40px rgba(8,7,16,0.6);
+    padding: 0px 20px;
+    box-sizing: border-box;
+    color: black;
+    margin-top: -1%;
+    height: 95%;
+}
+
 form {
     width: 100%;
     max-width: 400px;
@@ -39,14 +96,14 @@ form {
     backdrop-filter: blur(10px);
     border: 2px solid rgba(255,255,255,0.2);
     box-shadow: 0 0 40px rgba(8,7,16,0.6);
-    padding: 30px 20px;
+    padding: 0px 20px;
     box-sizing: border-box;
     color: black;
 }
 
 input, select, input[type="number"] {
     display: block;
-    height: 40px;
+    height: 5px;
     width: 100%;
     background-color: rgba(0, 0, 0, 0.2);
     border-radius: 3px;
@@ -57,13 +114,20 @@ input, select, input[type="number"] {
     color: #000;
     border: none;
 }
+
+.edit-project {
+    width: 95%;
+    margin-bottom: 10px;
+}
+
 .modal-content > form:nth-child(3) > div {
     width: 95%;
+    margin-bottom: 10px;
 }
 
 textarea {
     width: 100%; /* Ajusta según sea necesario */
-    height: 150px; /* Ajusta la altura según lo que desees */
+    height: 85px; /* Ajusta la altura según lo que desees */
     resize: none; /* Desactiva la posibilidad de redimensionar */
     overflow-y: auto; /* Activa el scroll vertical si el texto excede el tamaño */
     padding: 10px;
@@ -71,4 +135,51 @@ textarea {
     border: 1px solid #ccc;
     font-size: 14px;
     line-height: 1.5;
+    color: black;
+}
+
+label {
+    display: block;
+    margin-top: 15px;
+    font-size: 14px;
+    font-weight: 500;
+    color: black;
+}
+
+/* Añadir margen inferior al campo de estado */
+select[name="estado"] {
+    margin-bottom: 16px; /* Espacio entre el campo de estado y los botones */
+    height: 47px;
+}
+
+/* Espaciado para los botones */
+.acciones {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px; /* Asegura que haya espacio entre los botones y el campo anterior */
+    font-size: 10px;
+}
+
+.acciones button {
+    padding: 10px 20px;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.acciones button:hover {
+    background-color: #0056b3;
+}
+
+
+.butons-puntos {
+    display: flex;
+}
+
+
+.buttons-edit {
+    display: flex;
+    font-size: 10px;
 }

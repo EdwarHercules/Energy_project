@@ -43,7 +43,7 @@ const EditProjectModal = ({ onClose, onGeoPuntoUpdated, geoPuntoId }) => {
     };
 
     return (
-        <div className="modal">
+        <div className="moda-edit-punto">
             <div className="modal-content">
                 <span className="close" onClick={onClose}>&times;</span>
                 <h2>Editar Proyecto</h2>
@@ -61,8 +61,10 @@ const EditProjectModal = ({ onClose, onGeoPuntoUpdated, geoPuntoId }) => {
                         <label>Longitud</label>
                         <input type="text" name="longitud" value={geoPunto.longitud} onChange={handleInputChange} />
                     </div>
+                    <div className="buttons-edit">
                     <button type="submit">Actualizar Proyecto</button>
                     <button type="button" onClick={onClose}>Cancelar</button>
+                    </div>
                 </form>
             </div>
         </div>

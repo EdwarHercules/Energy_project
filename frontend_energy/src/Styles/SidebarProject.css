@@ -1,6 +1,6 @@
 .sidebarProject {
-    width: 250px;
-    background-color: #f4f4f4;
+    width: 12%;
+    background-color: #ddd;
     height: 100%;
     position: fixed;
     transition: width 0.3s;

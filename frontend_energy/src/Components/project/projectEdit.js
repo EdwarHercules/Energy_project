@@ -51,31 +51,33 @@ const EditProjectModal = ({ onClose, onProjectUpdated, projectId }) => {
                 <h2>Editar Proyecto</h2>
                 {error && <p className="error">{error}</p>}
                 <form onSubmit={handleSubmit}>
-                    <div>
+                    <div className="edit-project">
                         <label>Nombre del proyecto</label>
                         <input type="text" name="nombre" value={proyecto.nombre} onChange={handleInputChange} required />
                     </div>
-                    <div>
+                    <div className="edit-project">
                         <label>Descripcion</label>
                         <textarea name="descripcion" value={proyecto.descripcion} onChange={handleInputChange} required />
                     </div>
-                    <div>
+                    <div className="edit-project">
                         <label>Fecha de Inicio</label>
                         <input type="date" name="fecha_inicio" value={proyecto.fecha_inicio} onChange={handleInputChange} required />
                     </div>
-                    <div>
+                    <div className="edit-project">
                         <label>Fecha de Fin</label>
                         <input type="date" name="fecha_fin" value={proyecto.fecha_fin} onChange={handleInputChange} />
                     </div>
-                    <div>
+                    <div className="edit-project">
                         <label>Estado:</label>
                         <select name="estado" value={proyecto.estado} onChange={handleInputChange}>
                             <option value="Activo">Activo</option>
                             <option value="Inactivo">Inactivo</option>
                         </select>
                     </div>
+                    <div className="buttons-edit">
                     <button type="submit">Actualizar Proyecto</button>
                     <button type="button" onClick={onClose}>Cancelar</button>
+                    </div>
                 </form>
             </div>
         </div>

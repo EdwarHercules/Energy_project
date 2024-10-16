@@ -1,5 +1,6 @@
 package eh.projects.energy.Entitys;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -11,6 +12,7 @@ public class GeopuntoEstructura {
 
     @ManyToOne
     @JoinColumn(name = "geopunto_id", nullable = false)
+    @JsonIgnore // Evita que se serialice el geopunto al serializar GeopuntoEstructura
     private Geopunto geopunto;
 
     @ManyToOne

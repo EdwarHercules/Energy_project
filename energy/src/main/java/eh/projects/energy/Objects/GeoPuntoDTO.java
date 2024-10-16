@@ -15,6 +15,8 @@ public class GeoPuntoDTO {
     private BigDecimal utm_y;
     private String descripcion;
 
+    private String nombre;
+
 
     public Long getId() {
         return id;
@@ -72,7 +74,15 @@ public class GeoPuntoDTO {
         this.descripcion = descripcion;
     }
 
-    public GeoPuntoDTO(Long id, Proyecto proyecto, BigDecimal latitud, BigDecimal longitud, BigDecimal utm_x, BigDecimal utm_y, String descripcion) {
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public GeoPuntoDTO(Long id, Proyecto proyecto, BigDecimal latitud, BigDecimal longitud, BigDecimal utm_x, BigDecimal utm_y, String descripcion, String nombre) {
         this.id = id;
         this.proyecto = proyecto;
         this.latitud = latitud;
@@ -80,6 +90,7 @@ public class GeoPuntoDTO {
         this.utm_x = utm_x;
         this.utm_y = utm_y;
         this.descripcion = descripcion;
+        this.nombre = nombre;
     }
 
     public GeoPuntoDTO() {

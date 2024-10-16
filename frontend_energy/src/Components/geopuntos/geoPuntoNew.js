@@ -56,24 +56,30 @@ const CreateGeoPuntoModal = ({ onClose, onGeoPuntoCreated, proyectoId }) => {
     };
 
     return (
-        <div className="modal">
+        <div className="modal-punto">
             <div className="modal-content">
                 <span className="close" onClick={onClose}>&times;</span>
                 <h2>Crear Nuevo GeoPunto</h2>
                 {error && <p className="error">{error}</p>}
                 <form onSubmit={handleSubmit}>
-                    <input 
-                        type="text" 
-                        name="descripcion" 
-                        placeholder="Descripción" 
-                        onChange={handleInputChange} 
-                        required 
-                    />
-                    <button type="submit">Crear GeoPunto</button>
+                    <div>
+                        <label>Descripción</label>
+                        <input 
+                            type="text" 
+                            name="descripcion" 
+                            placeholder="Descripción" 
+                            onChange={handleInputChange} 
+                            required 
+                        />
+                    </div>
+                    <div className="acciones">
+                        <button type="submit">Crear GeoPunto</button>
+                        <button type="button" onClick={onClose}>Cancelar</button>
+                    </div>
                 </form>
             </div>
         </div>
-    );
+    );    
 };
 
 export default CreateGeoPuntoModal;

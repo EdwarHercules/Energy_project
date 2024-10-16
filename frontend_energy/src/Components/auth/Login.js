@@ -17,7 +17,7 @@ const Login = () => {
       const { token } = await login(username, password);
       loginContext(token, username);
       alert('¡Inicio de sesión exitoso!'); // Mostrar alerta de éxito
-      navigate('/home');
+      navigate('/proyectos');
     } catch (error) {
       alert(`Email o Contraseña incorrectos.`); // Mostrar alerta de error
       setError(error.message); // Opcional: conservar el mensaje de error para depuración

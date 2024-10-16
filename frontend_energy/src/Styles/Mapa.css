@@ -1,0 +1,13 @@
+/* Estilo para el contenedor del mapa */
+.mapa-container {
+    height: 70vh; /* 70% del alto de la ventana */
+    width: 100%;  /* 100% del ancho */
+  }
+  
+  /* Asegurarse de que el contenedor ocupe el espacio completo */
+  .leaflet-container {
+    height: 100%;
+    width: 100%;
+    position: relative; /* Asegura que el mapa no sea desplazado fuera del área */
+  }
+  

@@ -5,7 +5,7 @@ import { obtenerProyectosPorUsuario, eliminarProyecto } from "./projectService";
 import CreateProjectModal from "./projectNew";
 import EditProjectModal from "./projectEdit";
 
-import "../../Styles/projectUser.css";
+import "../../Styles/AllProjectsPerUser.css";
 
 const ProjectUser = () => {
     const { authData } = useAuth();
@@ -77,16 +77,16 @@ const ProjectUser = () => {
     const totalPages = Math.ceil(proyectos.length / projectsPerPage);
 
     return (
-        <div className="container-projects">
+        <div className="container-projects-user">
             {authData.token ? (
-                <div className="main-content">
+                <div className="main-content-user">
                     <h2>Proyectos</h2>
-                    <div className="botones">
-                        <button className="create" onClick={() => setShowCreateModal(true)}>Crear un Proyecto Nuevo</button>
+                    <div className="botones-user">
+                        <button className="create-user" onClick={() => setShowCreateModal(true)}>Crear un Proyecto Nuevo</button>
                     </div>
                     {proyectos.length > 0 ? (
                         <>
-                            <div className="table-container-accounts">
+                            <div className="table-container-accounts-user">
                                 <table>
                                     <thead>
                                         <tr>
@@ -106,12 +106,12 @@ const ProjectUser = () => {
                                                 <td>{proyecto.fecha_inicio}</td>
                                                 <td>{proyecto.fecha_fin}</td>
                                                 <td>{proyecto.estado}</td>
-                                                <td>
-                                                <button className="view" onClick={() => handleVerProyecto(proyecto.id)}>
+                                                <td className="butons-puntos"> 
+                                                <button className="view-user" onClick={() => handleVerProyecto(proyecto.id)}>
                                                     Ver Proyecto
                                                 </button>                                                   
                                                 <button onClick={() => handleEditClick(proyecto)}>Actualizar</button>
-                                                    <button className="alert" onClick={() => handleEliminar(proyecto.id)}>Eliminar</button>
+                                                    <button className="alert-user" onClick={() => handleEliminar(proyecto.id)}>Eliminar</button>
                                                 </td>
                                             </tr>
                                         ))}
