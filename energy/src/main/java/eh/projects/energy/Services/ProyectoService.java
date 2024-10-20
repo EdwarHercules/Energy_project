@@ -78,6 +78,7 @@ public class ProyectoService {
     }
 
     public void deleteProyecto(Long id) {
+
         proyectoRepository.deleteById(id);
     }
 

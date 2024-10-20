@@ -58,8 +58,8 @@
 
 .close {
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: -14px;
+    right: -5px;
     cursor: pointer;
 }
 
@@ -103,7 +103,7 @@ form {
 
 input, select, input[type="number"] {
     display: block;
-    height: 5px;
+    height: 30px;
     width: 100%;
     background-color: rgba(0, 0, 0, 0.2);
     border-radius: 3px;
@@ -183,3 +183,5 @@ select[name="estado"] {
     display: flex;
     font-size: 10px;
 }
+
+

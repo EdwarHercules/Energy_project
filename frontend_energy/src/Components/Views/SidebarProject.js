@@ -1,12 +1,9 @@
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
 import { HomeIcon } from '@heroicons/react/24/solid';
 import "../../Styles/SidebarProject.css"
 
-
-const SidebarProject = ( {projectId} ) => {
-    console.log("Received project ID in SidebarProject:", projectId); // Verifica aquí
-
+const SidebarProject = ({ projectId }) => {
     const [isOpen, setIsOpen] = useState(false);
 
     const toggleSidebar = () => {
@@ -19,7 +16,7 @@ const SidebarProject = ( {projectId} ) => {
 
     useEffect(() => {
         const handleTouchOutside = (event) => {
-            if (isOpen && !event.target.closest('.sidebarProject')) {
+            if (isOpen && !event.target.closest('.sidebarProject') && !event.target.closest('.sidebar-button')) {
                 closeSidebar();
             }
         };
@@ -33,7 +30,7 @@ const SidebarProject = ( {projectId} ) => {
 
     return (
         <div>
-            <nav className={`sidebarProject ${isOpen ? 'show' : ''}`}>
+            <nav className={`sidebarProject ${isOpen ? 'show' : 'hide'}`}>
                 <div className="sidebar-nav-project">
                     <ul>
                         <li>
@@ -51,6 +48,7 @@ const SidebarProject = ( {projectId} ) => {
                     </ul>
                 </div>
             </nav>
+            {isOpen && <div className="overlay" onClick={closeSidebar} />} {/* Overlay para detectar clics fuera */}
             <button className="sidebar-button" onClick={toggleSidebar}>
                 <HomeIcon className="heroicon" />
             </button>

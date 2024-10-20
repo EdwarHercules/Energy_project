@@ -40,7 +40,6 @@ public class UsuarioServicioImpl implements  UsuarioServicio{
     @Override
     public Usuario guardar(UsuarioRegistroDTO usuarioRegistroDTO) {
         if (usuarioYaExiste(usuarioRegistroDTO.getEmail())) {
-            // Manejar el caso de un usuario existente, por ejemplo, lanzando una excepción
             throw new RuntimeException("El usuario ya existe");
         }
 
@@ -51,20 +50,20 @@ public class UsuarioServicioImpl implements  UsuarioServicio{
         usuario.setEmail(usuarioRegistroDTO.getEmail());
         usuario.setEstado(true);
 
-        // Crear un nuevo rol para el usuario con el nombre "ROLE_USER"
-        Rol rolUsuario = new Rol();
-        rolUsuario.setNombre("ROLE_USER_PRUEBA");
-        rolUsuario.setDescripcion("Rol de usuario por defecto");
-        rolRepositorio.save(rolUsuario);
+        // Buscar los roles existentes
+        List<Rol> rolesPredeterminados = rolRepositorio.findAllByNombreIn(
+                List.of("ROLE_USER_PRUEBA", "ROLE_USER_BASIC")
+        );
 
-        // Asignar roles al usuario (en este caso, solo ROLE_USER)
-        usuario.setRoles(Collections.singletonList(rolUsuario));
+        // Asignar los roles encontrados al usuario
+        usuario.setRoles(rolesPredeterminados);
 
         // Guardar en la base de datos
         Usuario savedUsuario = usuarioRepositorio.save(usuario);
 
         return savedUsuario;
     }
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Usuario usuario = usuarioRepositorio.findByEmail(username);

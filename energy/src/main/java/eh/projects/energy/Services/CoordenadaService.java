@@ -13,6 +13,8 @@ import java.math.BigDecimal;
 public class CoordenadaService {
 
     private CoordinateTransform transform;
+    private CoordinateTransform geoToUTMTransform;
+
 
     public CoordenadaService() {
         // Crear el sistema de referencia geográfica y el de UTM
@@ -22,6 +24,8 @@ public class CoordenadaService {
 
         CoordinateTransformFactory ctFactory = new CoordinateTransformFactory();
         transform = ctFactory.createTransform(geoCRS, utmCRS);
+        geoToUTMTransform = ctFactory.createTransform(utmCRS, geoCRS); // Inicializa correctamente este transformador
+
     }
 
     public ProjCoordinate convertirGeograficaAUTM(BigDecimal latitud, BigDecimal longitud) {
@@ -39,4 +43,22 @@ public class CoordenadaService {
         return coordUTM; // Retorna el valor convertido (x, y en UTM)
     }
 
+
+    /**
+     * Convierte coordenadas UTM a geográficas (latitud y longitud).
+     */
+    public ProjCoordinate convertirUTMAGeografica(BigDecimal utmX, BigDecimal utmY) {
+        // Convertir BigDecimal a double
+        double utmXDouble = utmX.doubleValue();
+        double utmYDouble = utmY.doubleValue();
+
+        // Crear coordenadas UTM (orden: x, y)
+        ProjCoordinate coordUTM = new ProjCoordinate(utmXDouble, utmYDouble);
+        ProjCoordinate coordGeografica = new ProjCoordinate();
+
+        // Realizar la conversión de UTM a geográfica
+        geoToUTMTransform.transform(coordUTM, coordGeografica);
+
+        return coordGeografica; // Retorna el valor convertido (longitud, latitud)
+    }
 }

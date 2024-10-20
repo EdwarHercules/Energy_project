@@ -1,29 +1,33 @@
+/* Sidebar estilos generales */
 .sidebarProject {
-    width: 12%;
+    width: 10%; /* Ancho del sidebar en computadoras */
     background-color: #ddd;
     height: 100%;
     position: fixed;
-    transition: width 0.3s;
-    top: 6%;
-    padding: 20px; /* Espacio alrededor del contenido del sidebar */
+    top: 6%; /* Posición a 6% del límite superior */
+    padding: 20px;
+    z-index: 100; /* Asegura que esté encima de otros elementos */
+    transition: transform 0.3s; /* Transición para la animación */
 }
 
+
+/* Estilos para el contenido del sidebar */
 .sidebar-nav-project {
     height: 90%;
     display: flex;
     flex-direction: column;
-    align-items: center; /* Centrar los elementos horizontalmente */
+    align-items: center;
 }
 
-.sidebar-nav-project ul {
+.sidebar-nav-project ul {   
     list-style-type: none;
     padding: 0;
     margin: 0;
-    width: 100%; /* Asegura que los elementos ocupen el ancho completo */
+    width: 100%;
 }
 
 .sidebar-nav-project ul li {
-    margin: 45px 0; /* Separación entre cada elemento */
+    margin: 45px 0;
     width: 100%;
 }
 
@@ -32,19 +36,17 @@
     text-decoration: none;
     color: #333;
     font-weight: bold;
-    padding: 10px 15px; /* Espacio interno de los enlaces */
-    text-align: center; /* Centrar el texto dentro del enlace */
+    padding: 10px 15px;
+    text-align: center;
     transition: background-color 0.3s, color 0.3s;
-    border-radius: 5px; /* Bordes redondeados */
+    border-radius: 5px;
 }
 
-/* Efecto al pasar el mouse por encima */
 .sidebar-nav-project ul li a:hover {
     background-color: #ccc;
     color: #000;
 }
 
-/* Efecto al hacer clic (activo) */
 .sidebar-nav-project ul li a:active {
     background-color: #aaa;
     color: #fff;
@@ -52,9 +54,49 @@
 
 /* Botón del sidebar */
 .sidebar-button {
+    display: none; /* Ocultamos por defecto */
+}
+
+/* Fondo oscuro que cubre toda la pantalla cuando el sidebar está abierto */
+.overlay {
     position: fixed;
-    top: 20px;
-    left: 20px;
-    z-index: 999; /* Asegura que el botón siempre esté encima del contenido */
-    cursor: pointer;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro semitransparente */
+    display: none; /* Ocultamos por defecto */
+    z-index: 99; /* Justo detrás del botón y encima del resto del contenido */
+}
+
+/* Responsive styles for mobile devices (menos de 768px) */
+@media (max-width: 768px) {
+    
+    .sidebarProject {
+        width: 10%; /* Ancho del sidebar en dispositivos pequeños */
+        transform: translateX(0); /* Inicialmente ocultar el sidebar */
+    }
+
+    .sidebarProject.show {
+        top: 1%; /* Asegura que el sidebar esté visible */
+    }
+
+    .sidebarProject.hide {
+        transform: translateX(-100%);
+        top: 1%; /* Asegura que el sidebar esté oculto */
+    }
+
+    .sidebar-button {
+        display: block; /* Mostramos el botón para abrir el sidebar */
+        position: fixed; /* Fijamos la posición del botón */
+        top: 20px; /* Ajustamos la posición del botón */
+        left: 10px; /* Ajustamos la posición del botón */
+        background-color: #007BFF; /* Color del botón */
+        color: white; /* Color del texto del botón */
+        border: none; /* Sin bordes */
+        border-radius: 5px; /* Bordes redondeados */
+        padding: 10px; /* Espacio interno */
+        cursor: pointer; /* Cambia el cursor al pasar el mouse */
+        z-index: 1000; /* Asegura que el botón esté encima de otros elementos */
+    }
 }

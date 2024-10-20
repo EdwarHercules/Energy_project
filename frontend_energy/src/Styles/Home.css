@@ -1,0 +1,128 @@
+.home-container {
+    width: 80%;
+    height: 80vh;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden; /* Ocultar el scroll del contenedor principal */
+}
+
+.home-header {
+    text-align: center;
+    margin-bottom: 20px;
+    animation: fadeIn 1s;
+}
+
+.home-header h1 {
+    font-size: 2.5em;
+    margin: 10px 0;
+}
+
+.home-header p {
+    font-size: 1.2em;
+    color: #555;
+}
+
+/* Estilo del párrafo explicativo */
+.home-description {
+    font-size: 1.1em;
+    color: #333;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.carousel {
+    display: flex;
+    flex-direction: column; /* Permitir que el carrusel tenga flexión vertical */
+    transition: transform 0.5s ease;
+    overflow-y: auto; /* Permitir scroll vertical */
+    height: 60vh; /* Altura máxima del carrusel */
+    padding: 20px 0;
+    scroll-behavior: smooth; /* Habilitar scroll suave */
+}
+
+.carousel-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+}
+
+.carousel-item:nth-child(even) {
+    flex-direction: row-reverse; /* Para alternar la posición de la imagen en items pares */
+}
+
+.home-image {
+    width: 40%; /* Tamaño de la imagen */
+    max-width: 250px;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.carousel-item-text {
+    width: 55%; /* Tamaño del texto */
+    font-size: 1.1em;
+    color: #333;
+    margin-right: 10px;
+}
+
+.carousel-controls {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.carousel-controls button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    margin: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.carousel-controls button:hover {
+    background-color: #0056b3;
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Estilos Responsivos */
+@media (max-width: 768px) {
+    .home-header h1 {
+        font-size: 2em;
+    }
+
+    .home-header p {
+        font-size: 1em;
+    }
+
+    .carousel-item {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .home-image {
+        width: 80%;
+        max-width: 150px; /* Ajustar el tamaño de la imagen en dispositivos móviles */
+    }
+
+    .carousel-item-text {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+}

@@ -1,0 +1,116 @@
+/* Container for the download buttons section */
+.descargar-archivos-container {
+    padding: 20px;
+    background-color: #F2F4F7; /* Fondo suave */
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 175vh;
+    left: 15%;
+    height: auto;
+    margin: 4% 15%;
+}
+
+/* Button container */
+.botones {
+    display: flex;
+    justify-content: center; /* Centrar los botones */
+    margin-bottom: 20px;
+}
+
+/* Button styles */
+button {
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    margin: 0 10px; /* Espaciado entre botones */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Transiciones suaves */
+}
+
+/* KMZ Button styles */
+.btn-descargar-kmz {
+    background-color: #007BFF; /* Azul */
+}
+
+.btn-descargar-kmz:hover {
+    background-color: #0056b3; /* Azul más oscuro al pasar el mouse */
+}
+
+/* Excel Button styles */
+.btn-descargar-excel {
+    background-color: #28A745; /* Verde para Excel */
+}
+
+.btn-descargar-excel:hover {
+    background-color: #218838; /* Verde más oscuro al pasar el mouse */
+}
+
+/* DWG Button styles */
+.btn-descargar-dwg {
+    background-color: #FFC107; /* Amarillo para DWG */
+}
+
+.btn-descargar-dwg:hover {
+    background-color: #e0a800; /* Amarillo más oscuro al pasar el mouse */
+}
+
+/* GDB Button styles */
+.btn-descargar-gdb {
+    background-color: #DC3545; /* Rojo para GDB */
+}
+
+.btn-descargar-gdb:hover {
+    background-color: #c82333; /* Rojo más oscuro al pasar el mouse */
+}
+
+.modal-terminos {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .modal-content-terminos {
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    width: 80%;
+    max-height: 80%;
+    overflow-y: auto; /* Habilita el scroll si es necesario */
+  }
+  
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .modal-body {
+    margin-top: 20px;
+  }
+  
+  .btn-cerrar-terminos {
+    background: transparent;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+  }
+  
+  .btn-cerrar-terminos:last-child {
+    margin-top: 20px;
+    padding: 10px 20px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  

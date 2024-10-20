@@ -76,6 +76,7 @@ public class SecurityConfiguration {
                 "http://localhost:3001",
                 "https://localhost:3000",
                 "http://localhost:3000",
+                "http://127.0.0.1:8000",
                 "https://157.245.10.52:3001",
                 "https://157.245.10.52:3000",
                 "https://moneyapp.edwarhercules.site",

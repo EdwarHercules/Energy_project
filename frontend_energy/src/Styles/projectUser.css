@@ -11,7 +11,7 @@
     overflow-y: auto;
     max-height: 90vh;
     height: auto;
-    margin: 4%17%;
+    margin: 4% 15%;
     left: 13%;
 }
 
@@ -162,4 +162,86 @@ td button {
     background-color: #007bff;
     color: white;
     pointer-events: none;
+}
+
+/* Media queries for responsive design */
+
+/* Responsive styles for tablets (768px - 1024px) */
+@media (max-width: 1024px) {
+    .container-projects {
+        position: relative; /* Cambiar a posición relativa */
+        top: 10%; /* Espacio desde la parte superior */
+        width: 100%; /* Ancho completo */
+        left: 0; /* Sin desplazamiento a la izquierda */
+        margin: 0; /* Sin márgenes */
+    }
+
+    table {
+        font-size: 0.9em; /* Ajustar tamaño de fuente de la tabla */
+    }
+
+    td button {
+        width: 90%; /* Ajustar ancho de los botones */
+    }
+}
+
+/* Responsive styles for mobile devices (480px - 768px) */
+@media (max-width: 768px) {
+    #root {
+        width: 100%;
+        height: 100%;
+    }
+
+    .container-projects {
+        position: relative; /* Cambiar a posición relativa */
+        top: 0%; /* Espacio desde la parte superior */
+        width: 100%; /* Ancho completo */
+        overflow: auto; /* Permitir desplazamiento */
+        margin-top: 10%; /* Espacio superior adicional */
+    }
+
+    .table-container-accounts {
+        width: 100%; /* Ancho completo */
+        margin-left: 0; /* Sin desplazamiento a la izquierda */
+        overflow-x: auto;
+    }
+
+    table {
+        font-size: 0.85em; /* Ajustar tamaño de fuente de la tabla */
+    }
+
+    td button {
+        width: 100%; /* Ancho completo para botones */
+        font-size: 0.8em; /* Ajustar tamaño de fuente de los botones */
+    }
+}
+
+/* Responsive styles for small mobile devices (less than 480px) */
+@media (max-width: 480px) {
+    .container-projects {
+        position: relative; /* Cambiar a posición relativa */
+        top: 0%; /* Espacio desde la parte superior */
+        width: 100%; /* Ancho completo */
+        margin-top: 12%; /* Espacio superior adicional */
+        overflow: auto; /* Permitir desplazamiento */
+    }
+
+    /* Main content area */
+    .main-content {
+        margin: 0 auto; /* Centrar contenido */
+        height: auto; /* Ajustar altura automática */
+    }
+    .table-container-accounts {
+        width: 100%; /* Ancho completo */
+        margin-left: 0; /* Sin desplazamiento a la izquierda */
+        overflow-x: auto;
+    }
+    table {
+        font-size: 0.75em; /* Ajustar tamaño de fuente de la tabla */
+    }
+
+    td button {
+        width: 100%; /* Ancho completo para botones */
+        font-size: 0.7em; /* Ajustar tamaño de fuente de los botones */
+    }
 }

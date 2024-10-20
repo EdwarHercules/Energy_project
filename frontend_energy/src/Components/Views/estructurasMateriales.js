@@ -21,6 +21,7 @@ const EstructurasMaterialesProject = () => {
     const [currentPageMaterialesDistintos, setCurrentPageMaterialesDistintos] = useState(1);
     const [itemsPerPage] = useState(10);
 
+
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -83,6 +84,21 @@ const EstructurasMaterialesProject = () => {
     const currentMaterialesDistintos = materialesDistintos.slice(indexOfFirstMaterialDistinto, indexOfLastMaterialDistinto);
     const totalPagesMaterialesDistintos = Math.ceil(materialesDistintos.length / itemsPerPage);
 
+    const handleNextFive = (setCurrentPage) => {
+        setCurrentPage((prevPage) => Math.min(prevPage + 5, totalPagesEstructuras));
+    };
+
+    const handlePrevFive = (setCurrentPage) => {
+        setCurrentPage((prevPage) => Math.max(prevPage - 5, 1));
+    };
+
+    const handleFirstPage = (setCurrentPage) => {
+        setCurrentPage(1);
+    };
+
+    const handleLastPage = (setCurrentPage) => {
+        setCurrentPage(totalPagesEstructuras);
+    };
     return (
         <div className="container-projects">
             {authData.token ? (
@@ -123,7 +139,9 @@ const EstructurasMaterialesProject = () => {
                                 </table>
                             </div>
                             <div className="pagination">
-                                {[...Array(totalPagesEstructuras).keys()].map(page => (
+                                <button onClick={() => handleFirstPage(setCurrentPageEstructuras)}>Primero</button>
+                                <button onClick={() => handlePrevFive(setCurrentPageEstructuras)}>-5</button>
+                                {[...Array(totalPagesEstructuras).keys()].slice(Math.max(currentPageEstructuras - 3, 0), Math.min(currentPageEstructuras + 2, totalPagesEstructuras)).map(page => (
                                     <button
                                         key={page + 1}
                                         onClick={() => setCurrentPageEstructuras(page + 1)}
@@ -132,6 +150,8 @@ const EstructurasMaterialesProject = () => {
                                         {page + 1}
                                     </button>
                                 ))}
+                                <button onClick={() => handleNextFive(setCurrentPageEstructuras)}>+ 5</button>
+                                <button onClick={() => handleLastPage(setCurrentPageEstructuras)}>Último</button>
                             </div>
                         </div>
                     )}
@@ -162,7 +182,9 @@ const EstructurasMaterialesProject = () => {
                                 </table>
                             </div>
                             <div className="pagination">
-                                {[...Array(totalPagesMateriales).keys()].map(page => (
+                                <button onClick={() => handleFirstPage(setCurrentPageMateriales)}>Primero</button>
+                                <button onClick={() => handlePrevFive(setCurrentPageMateriales)}>-5</button>
+                                {[...Array(totalPagesMateriales).keys()].slice(Math.max(currentPageMateriales - 3, 0), Math.min(currentPageMateriales + 2, totalPagesMateriales)).map(page => (
                                     <button
                                         key={page + 1}
                                         onClick={() => setCurrentPageMateriales(page + 1)}
@@ -171,6 +193,8 @@ const EstructurasMaterialesProject = () => {
                                         {page + 1}
                                     </button>
                                 ))}
+                                <button onClick={() => handleNextFive(setCurrentPageMateriales)}>+5</button>
+                                <button onClick={() => handleLastPage(setCurrentPageMateriales)}>Último</button>
                             </div>
                         </div>
                     )}
@@ -183,25 +207,41 @@ const EstructurasMaterialesProject = () => {
                                     <thead>
                                         <tr>
                                             <th>ID</th>
-                                            <th>Nombre</th>
+                                            <th>Nombre del Material</th>
                                             <th>Unidad</th>
                                             <th>Cantidad Distinta</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {currentMaterialesDistintos.map((materialDistinto) => (
-                                            <tr key={materialDistinto.id}>
-                                                <td>{materialDistinto.id}</td>
-                                                <td>{materialDistinto.material.nombre}</td>
-                                                <td>{materialDistinto.unidad}</td>
-                                                <td>{materialDistinto.cantidad}</td>
+                                        {currentMaterialesDistintos && currentMaterialesDistintos.length > 0 ? (
+                                            currentMaterialesDistintos.map((materialDistinto) => {
+                                                // Verifica que materialDistinto y materialDistinto.material estén definidos
+                                                if (materialDistinto && materialDistinto.material) {
+                                                    return (
+                                                        <tr key={materialDistinto.material.id}>
+                                                            <td>{materialDistinto.material.id}</td>
+                                                            <td>{materialDistinto.material.nombre}</td>
+                                                            <td>{materialDistinto.unidad}</td>
+                                                            <td>{materialDistinto.cantidad}</td>
+                                                        </tr>
+                                                    );
+                                                } else {
+                                                    // Maneja el caso en que no hay datos válidos
+                                                    return null; // O puedes mostrar un mensaje alternativo
+                                                }
+                                            })
+                                        ) : (
+                                            <tr>
+                                                <td colSpan={4}>No hay materiales disponibles.</td>
                                             </tr>
-                                        ))}
+                                        )}
                                     </tbody>
                                 </table>
                             </div>
                             <div className="pagination">
-                                {[...Array(totalPagesMaterialesDistintos).keys()].map(page => (
+                                <button onClick={() => handleFirstPage(setCurrentPageMaterialesDistintos)}>Primero</button>
+                                <button onClick={() => handlePrevFive(setCurrentPageMaterialesDistintos)}>-5</button>
+                                {[...Array(totalPagesMaterialesDistintos).keys()].slice(Math.max(currentPageMaterialesDistintos - 3, 0), Math.min(currentPageMaterialesDistintos + 2, totalPagesMaterialesDistintos)).map(page => (
                                     <button
                                         key={page + 1}
                                         onClick={() => setCurrentPageMaterialesDistintos(page + 1)}
@@ -210,9 +250,13 @@ const EstructurasMaterialesProject = () => {
                                         {page + 1}
                                     </button>
                                 ))}
+                                <button onClick={() => handleNextFive(setCurrentPageMaterialesDistintos)}>+5</button>
+                                <button onClick={() => handleLastPage(setCurrentPageMaterialesDistintos)}>Último</button>
                             </div>
                         </div>
                     )}
+
+
                 </div>
             ) : (
                 <p>No estás autorizado</p>

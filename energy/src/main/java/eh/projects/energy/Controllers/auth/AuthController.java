@@ -1,5 +1,7 @@
 package eh.projects.energy.Controllers.auth;
 
+import eh.projects.energy.Entitys.Rol;
+import eh.projects.energy.Entitys.Usuario;
 import eh.projects.energy.JWT.JwtRequest;
 import eh.projects.energy.JWT.JwtResponse;
 import eh.projects.energy.JWT.JwtUtil;
@@ -21,6 +23,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -74,20 +79,27 @@ public class AuthController {
             // Cargar detalles del usuario
             final UserDetails userDetails = usuarioServicio.loadUserByUsername(request.getUsername());
 
-            // Generar token JWT
-            final String jwt = jwtTokenUtil.generarToken(userDetails);
+            // Obtener los roles del usuario
+            Usuario usuario = usuarioservicioImpl.findByNombreUsuario(request.getUsername());
+            List<String> roles = usuario.getRoles().stream()
+                    .map(Rol::getNombre)
+                    .collect(Collectors.toList());
+
+            logger.info("Roles asignados al token: " + roles);
+
+            // Generar token JWT con roles
+            final String jwt = jwtTokenUtil.generarToken(userDetails, roles);
 
             return ResponseEntity.ok(new JwtResponse(jwt));
         } catch (BadCredentialsException e) {
-            // Manejo de excepción para credenciales incorrectas
             logger.info(String.valueOf(e));
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Usuario o contraseña incorrectos");
         } catch (Exception e) {
-            // Manejo de otras excepciones
             logger.info(String.valueOf(e));
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error en el servidor: " + e.getMessage());
         }
     }
+
 
     @PostMapping("/logout")
     public ResponseEntity<?> logout(HttpServletRequest request) {

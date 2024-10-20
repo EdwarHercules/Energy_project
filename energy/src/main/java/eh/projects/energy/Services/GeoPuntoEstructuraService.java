@@ -3,10 +3,12 @@ package eh.projects.energy.Services;
 import eh.projects.energy.Entitys.Estructura;
 import eh.projects.energy.Entitys.Geopunto;
 import eh.projects.energy.Entitys.GeopuntoEstructura;
+import eh.projects.energy.Entitys.Proyecto;
 import eh.projects.energy.Objects.GeoPuntoEstructuraDTO;
 import eh.projects.energy.Repositories.EstructurasRepository;
 import eh.projects.energy.Repositories.GeoPuntoEstructuraRepository;
 import eh.projects.energy.Repositories.GeoPuntoRepository;
+import eh.projects.energy.Repositories.ProyectoRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +32,14 @@ public class GeoPuntoEstructuraService {
     private GeoPuntoRepository  geoPuntoRepository;
 
 
-    
+    @Autowired
+    private ProyectoRepository proyectoRepository;
+
+
+    public List<GeoPuntoEstructuraDTO> getEstructurasPorGeopunto(Long geopuntoId) {
+        List<GeopuntoEstructura> geopuntoEstructuras = geoPuntoEstructuraRepository.findByGeopuntoId(geopuntoId);
+        return geopuntoEstructuras.stream().map(this::convertToGeoPuntoEstructuraDTO).collect(Collectors.toList());
+    }
     public List<GeoPuntoEstructuraDTO> getAll() {
         List<GeopuntoEstructura> geopuntoEstructuras =geoPuntoEstructuraRepository.findAll();
         return geopuntoEstructuras.stream().map(this::convertToGeoPuntoEstructuraDTO).collect(Collectors.toList());
@@ -41,6 +50,11 @@ public class GeoPuntoEstructuraService {
         return geopuntoEstructuras.map(this::convertToGeoPuntoEstructuraDTO);
     }
 
+    public List<GeoPuntoEstructuraDTO> getAllPerProyecto(Long id) {
+        List<GeopuntoEstructura> geopuntoEstructuras =geoPuntoEstructuraRepository.findByProyectoId(id);
+        return geopuntoEstructuras.stream().map(this::convertToGeoPuntoEstructuraDTO).collect(Collectors.toList());
+    }
+
     public GeoPuntoEstructuraDTO insertarEstructuraEnGeoPunto(Long geoPuntoId, Long estructuraId, String circuito) {
         // Verificar si la estructura existe y está asociada con el proyecto
         Estructura estructura = estructurasRepository.findById(estructuraId)
@@ -49,12 +63,14 @@ public class GeoPuntoEstructuraService {
         Geopunto geopunto = geoPuntoRepository.findById(geoPuntoId)
                 .orElseThrow(() -> new RuntimeException("Geopunto no encontrado con ID: " + geoPuntoId));
 
-
+        Proyecto proyecto = proyectoRepository.findById(geopunto.getProyecto().getId())
+                .orElseThrow(() -> new RuntimeException("Proyecto no encontrado"));
         // Crear la nueva asociación entre el geopunto y la estructura
         GeopuntoEstructura geopuntoEstructura = new GeopuntoEstructura();
         geopuntoEstructura.setGeopunto(geopunto);
         geopuntoEstructura.setEstructura(estructura);
         geopuntoEstructura.setCircuito(circuito);
+        geopuntoEstructura.setProyecto(proyecto);
 
         // Guardar la relación en la base de datos
         GeopuntoEstructura saveGeoPuntoEstructura = geoPuntoEstructuraRepository.save(geopuntoEstructura);
@@ -86,6 +102,7 @@ public class GeoPuntoEstructuraService {
     private GeoPuntoEstructuraDTO convertToGeoPuntoEstructuraDTO(GeopuntoEstructura geopuntoEstructuras) {
         return new GeoPuntoEstructuraDTO(
                 geopuntoEstructuras.getId(),
+                geopuntoEstructuras.getProyecto(),
                 geopuntoEstructuras.getGeopunto(),
                 geopuntoEstructuras.getEstructura(),
                 geopuntoEstructuras.getCircuito()

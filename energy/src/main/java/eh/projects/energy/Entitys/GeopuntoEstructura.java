@@ -11,6 +11,9 @@ public class GeopuntoEstructura {
     private Long id;
 
     @ManyToOne
+    @JoinColumn(name = "proyecto_id", nullable = false)
+    private Proyecto proyecto;
+    @ManyToOne
     @JoinColumn(name = "geopunto_id", nullable = false)
     @JsonIgnore // Evita que se serialice el geopunto al serializar GeopuntoEstructura
     private Geopunto geopunto;
@@ -51,5 +54,13 @@ public class GeopuntoEstructura {
 
     public void setCircuito(String circuito) {
         Circuito = circuito;
+    }
+
+    public Proyecto getProyecto() {
+        return proyecto;
+    }
+
+    public void setProyecto(Proyecto proyecto) {
+        this.proyecto = proyecto;
     }
 }

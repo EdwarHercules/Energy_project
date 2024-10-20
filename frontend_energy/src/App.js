@@ -10,6 +10,9 @@ import ProjectLayout from './Components/Views/viewOneProject';
 import GeoPuntoUser from './Components/geopuntos/geoPuntoList';
 import EstructurasMaterialesProject from './Components/Views/estructurasMateriales';
 import MiVistaDeMapa from './Components/Views/mapaview';
+import DescargarKmzButton from './Components/DownloadFIles/KMZFile';
+import UsuariosConRoles from './Components/Usuarios/userRoles';
+import Home from './Pages/Home';
 import './App.css';
 
 const App = () => {
@@ -20,12 +23,15 @@ const App = () => {
           <Routes>
             <Route path="*" element={<NotFound />} />
             <Route path="/" element={<Login />} />
+            <Route path="/home" element={<Home />} />
             <Route path="/register" element={<Register />} />
             <Route path='/proyectos' element={<PrivateRoute><Proyectos/></PrivateRoute>} />
+            <Route path='/usuarios' element={<PrivateRoute><UsuariosConRoles/></PrivateRoute>} />
             <Route path="/proyectos/:id" element={<PrivateRoute><ProjectLayout /></PrivateRoute>}>
               <Route path="geoPuntos" element={<GeoPuntoUser />} />
               <Route path="estMat" element={<EstructurasMaterialesProject />} />
               <Route path="mapa" element={<MiVistaDeMapa />} />
+              <Route path="files" element={<DescargarKmzButton />} />
               {/* Otras rutas dentro de un proyecto */}
             </Route>
             <Route path="*" element={<Navigate to="/login" />} />

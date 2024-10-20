@@ -3,10 +3,15 @@ package eh.projects.energy.Controllers.proyecto;
 import eh.projects.energy.Objects.GeoPuntoDTO;
 import eh.projects.energy.Services.GeoPuntoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -48,6 +53,16 @@ public class GeopuntoController {
         }
     }
 
+    @PostMapping("/manual")
+    public ResponseEntity<GeoPuntoDTO> createManualGeoPunto(@RequestParam Long id, @RequestBody GeoPuntoDTO dto) {
+        try {
+            GeoPuntoDTO newdto = geoPuntoService.crearGeoPuntoManualPorUsuario(id, dto);
+            return new ResponseEntity<>(newdto, HttpStatus.CREATED);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
     // Endpoint para actualizar por id
     @PutMapping("/{id}")
     public ResponseEntity<GeoPuntoDTO> updateId(@PathVariable("id") Long id, @RequestBody GeoPuntoDTO dto) {
@@ -62,6 +77,27 @@ public class GeopuntoController {
     public ResponseEntity<Void> deleteID(@PathVariable("id") Long id) {
         geoPuntoService.deleteId(id);
         return ResponseEntity.noContent().build();
+    }
+
+
+
+    @GetMapping("/proyectos/{id}/kmz")
+    public ResponseEntity<FileSystemResource> downloadKmz(@PathVariable Long id) throws IOException {
+        // Obtener los puntos del proyecto (simulado aquí)
+        List<GeoPuntoDTO> puntos = geoPuntoService.getAllPerProyecto(id);
+
+        // Crear el archivo KMZ
+        File kmzFile = geoPuntoService.createKmzFile(id, puntos);
+
+        // Configurar la respuesta HTTP para descargar el archivo KMZ
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + kmzFile.getName());
+
+        return ResponseEntity.ok()
+                .headers(headers)
+                .contentLength(kmzFile.length())
+                .contentType(MediaType.parseMediaType("application/vnd.google-earth.kmz"))
+                .body(new FileSystemResource(kmzFile));
     }
 
 }

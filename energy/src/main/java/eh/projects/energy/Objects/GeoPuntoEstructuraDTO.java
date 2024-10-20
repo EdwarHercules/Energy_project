@@ -2,9 +2,12 @@ package eh.projects.energy.Objects;
 
 import eh.projects.energy.Entitys.Estructura;
 import eh.projects.energy.Entitys.Geopunto;
+import eh.projects.energy.Entitys.Proyecto;
 
 public class GeoPuntoEstructuraDTO {
     private  Long id;
+
+    private Proyecto proyecto;
     private Geopunto geopunto;
     private Estructura estructura;
     private String circuito;
@@ -41,13 +44,22 @@ public class GeoPuntoEstructuraDTO {
         this.circuito = circuito;
     }
 
-    public GeoPuntoEstructuraDTO(Long id, Geopunto geopunto, Estructura estructura, String circuito) {
-        this.id = id;
-        this.geopunto = geopunto;
-        this.estructura = estructura;
-        this.circuito = circuito;
+    public Proyecto getProyecto() {
+        return proyecto;
+    }
+
+    public void setProyecto(Proyecto proyecto) {
+        this.proyecto = proyecto;
     }
 
     public GeoPuntoEstructuraDTO() {
+    }
+
+    public GeoPuntoEstructuraDTO(Long id, Proyecto proyecto, Geopunto geopunto, Estructura estructura, String circuito) {
+        this.id = id;
+        this.proyecto = proyecto;
+        this.geopunto = geopunto;
+        this.estructura = estructura;
+        this.circuito = circuito;
     }
 }

@@ -61,20 +61,46 @@ const ProjectUser = () => {
     };
 
     const handleVerProyecto = (proyectoId) => {
-        console.log("Navigating to project with ID:", proyectoId); // Verifica aquí
-
         navigate(`/proyectos/${proyectoId}/geoPuntos`);
     };
+
     // Paginación: Calcular índices de proyectos por página
     const indexOfLastProject = currentPage * projectsPerPage;
     const indexOfFirstProject = indexOfLastProject - projectsPerPage;
     const currentProjects = proyectos.slice(indexOfFirstProject, indexOfLastProject);
 
-    // Cambiar de página
-    const paginate = (pageNumber) => setCurrentPage(pageNumber);
-
     // Calcular número total de páginas
     const totalPages = Math.ceil(proyectos.length / projectsPerPage);
+
+    // Limitar los botones de paginación (2 antes y 2 después de la página actual)
+    const visiblePages = [];
+    const startPage = Math.max(1, currentPage - 2);
+    const endPage = Math.min(totalPages, currentPage + 2);
+
+    for (let i = startPage; i <= endPage; i++) {
+        visiblePages.push(i);
+    }
+
+    // Funciones de navegación
+    const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+    const handleNextFive = () => {
+        const nextPage = Math.min(currentPage + 5, totalPages);
+        setCurrentPage(nextPage);
+    };
+
+    const handlePrevFive = () => {
+        const prevPage = Math.max(currentPage - 5, 1);
+        setCurrentPage(prevPage);
+    };
+
+    const goToFirstPage = () => {
+        setCurrentPage(1);
+    };
+
+    const goToLastPage = () => {
+        setCurrentPage(totalPages);
+    };
 
     return (
         <div className="container-projects-user">
@@ -87,8 +113,8 @@ const ProjectUser = () => {
                     {proyectos.length > 0 ? (
                         <>
                             <div className="table-container-accounts-user">
-                                <table>
-                                    <thead>
+                                <table className="table-projects">
+                                    <thead className="table-head-project">
                                         <tr>
                                             <th>Nombre</th>
                                             <th>Descripcion</th>
@@ -98,7 +124,7 @@ const ProjectUser = () => {
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody className="table-body-project">
                                         {currentProjects.map(proyecto => (
                                             <tr key={proyecto.id}>
                                                 <td>{proyecto.nombre}</td>
@@ -121,15 +147,21 @@ const ProjectUser = () => {
 
                             {/* Paginación */}
                             <div className="pagination">
-                                {[...Array(totalPages).keys()].map(page => (
+                                <button onClick={goToFirstPage} disabled={currentPage === 1}>Primero</button>
+                                <button onClick={handlePrevFive} disabled={currentPage === 1}>-5</button>
+                                
+                                {visiblePages.map(page => (
                                     <button
-                                        key={page + 1}
-                                        onClick={() => paginate(page + 1)}
-                                        className={currentPage === page + 1 ? "active" : ""}
+                                        key={page}
+                                        onClick={() => paginate(page)}
+                                        className={currentPage === page ? "active" : ""}
                                     >
-                                        {page + 1}
+                                        {page}
                                     </button>
                                 ))}
+
+                                <button onClick={handleNextFive} disabled={currentPage === totalPages}>+5</button>
+                                <button onClick={goToLastPage} disabled={currentPage === totalPages}>Último</button>
                             </div>
                         </>
                     ) : (

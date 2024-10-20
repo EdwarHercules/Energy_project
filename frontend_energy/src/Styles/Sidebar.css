@@ -136,20 +136,60 @@
 /* Responsive Styles */
 @media (max-width: 768px) {
     .sidebar {
-        height: 10%; /* Mantener el 10% de altura en pantallas pequeñas */
+        height: auto;
+        position: fixed;
+        top: 0;
+        width: 100%; /* Asegurar que ocupe todo el ancho */
+        z-index: 1000; /* Mantener el z-index alto para que siempre esté arriba */
+    }
+
+    .sidebar-nav ul {
+        flex-direction: row; /* Mantener la misma disposición en dispositivos móviles */
+        justify-content: center; /* Asegura que los elementos estén espaciados correctamente */
     }
 
     .sidebar-button {
         display: flex;
         left: 1%;
-        top: -3%;
+        top: 10px;
+    }
+
+    .sidebar-nav ul li a {
+        padding: 0px 10px; /* Ajustar padding para pantallas más pequeñas */
+        font-size: 14px; /* Reducir el tamaño de la fuente si es necesario */
     }
 }
 
-/* Hover effect for larger screens */
+@media (max-width: 480px){
+    .sidebar {
+        height: auto;
+        position: fixed;
+        top: 0;
+        width: 100%; /* Asegurar que ocupe todo el ancho */
+        z-index: 1000; /* Mantener el z-index alto para que siempre esté arriba */
+    }
+
+    .sidebar-nav ul {
+        flex-direction: row; /* Mantener la misma disposición en dispositivos móviles */
+        justify-content: center; /* Asegura que los elementos estén espaciados correctamente */
+    }
+
+    .sidebar-button {
+        display: flex;
+        left: 1%;
+        top: 10px;
+    }
+
+    .sidebar-nav ul li a {
+        padding: 0px 10px; /* Ajustar padding para pantallas más pequeñas */
+        font-size: 14px; /* Reducir el tamaño de la fuente si es necesario */
+    }
+
+}
+
 @media (min-width: 769px) {
     .sidebar {
-        top: 0; /* Mostrar sidebar por defecto en pantallas grandes */
+        top: 0;
     }
 
     .sidebar-button {

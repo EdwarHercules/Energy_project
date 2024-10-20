@@ -1,23 +1,23 @@
 /* Container for the projects section */
 .container-projects-user {
     padding: 20px;
-    background-color: #F2F4F7; /* Fondo suave */
+    background-color: #F2F4F7;
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    width: 175vh;
-    left: 15%;
-    height: auto;
-    top: 6%;
-    overflow-y: auto;
-    max-height: 90vh;
-    height: auto;
-    margin: 4% 0%;
-    left: 13%;
-}
+    width: 100%;
+    left: 0;
+    height: calc(100vh - 12%); /* Altura total de la ventana menos 12% */
+    max-height: 90vh; /* Máxima altura permitida */
+    margin: 4% auto; /* Margen automático para centrar */
+    overflow-y: auto; /* Scroll vertical */
+    position: relative; /* Para posicionar correctamente el contenedor */
+    top: 3%; /* Desplazar el contenedor hacia abajo un 12% */
+    box-sizing: border-box; /* Incluir padding y border en el cálculo de ancho y alto */
+  }
+  
 
 /* Main content area */
 .main-content-user {
-    /*max-width: 800px; /* Limitar el ancho máximo */
     margin: 0 auto; /* Centrar el contenido */
 }
 
@@ -31,9 +31,8 @@ h2 {
 /* Button container */
 .botones-user {
     display: flex;
-    /*justify-content: center;  Centrar los botones */
     margin-bottom: 20px;
-    width: auto;
+    justify-content: flex-start;
 }
 
 /* Button styles */
@@ -44,61 +43,67 @@ button {
     padding: 10px 20px;
     font-size: 1em;
     cursor: pointer;
-    margin: 0 10px; /* Espaciado entre botones */
-    transition: background-color 0.3s ease, transform 0.3s ease; /* Transiciones suaves */
+    margin: 0 10px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 /* Botón para crear un nuevo proyecto */
-button.create {
-    width: auto;
+button.create-user {
     background-color: #007BFF; /* Azul */
 }
 
-button.create:hover {
+button.create-user:hover {
     background-color: #0056b3; /* Azul más oscuro al pasar el mouse */
 }
 
 /* Button styles for viewing and deleting projects */
 button.view-user {
-    background-color: #28A745; /* Verde para ver proyecto */
+    background-color: #28A745; /* Verde */
 }
 
-button.view:hover {
-    background-color: #218838; /* Verde más oscuro al pasar el mouse */
+button.view-user:hover {
+    background-color: #218838; /* Verde más oscuro */
 }
 
 button.alert-user {
-    background-color: #DC3545; /* Rojo para eliminar */
+    background-color: #DC3545; /* Rojo */
 }
 
-button.alert:hover {
-    background-color: #c82333; /* Rojo más oscuro al pasar el mouse */
+button.alert-user:hover {
+    background-color: #c82333; /* Rojo más oscuro */
 }
 
 /* Table container styles */
 .table-container-accounts-user {
+    width: 100%;
+    max-width: 100%;
     overflow-x: auto; /* Permitir desplazamiento horizontal si es necesario */
 }
 
 /* Table styles */
 table {
     width: 100%;
-    border-collapse: collapse; /* Colapsar bordes */
-    margin-top: 10px; /* Espaciado superior */
-    border-radius: 8px; /* Esquinas redondeadas */
-    overflow: hidden; /* Ocultar el desbordamiento */
-    font-size: 1em; /* Tamaño de fuente de la tabla */
+    border-collapse: collapse;
+    margin-top: 10px;
+    table-layout: auto; /* Ajuste dinámico de las columnas */
+}
+
+thead {
+    position: sticky;
+    top: 0;
+    background-color: #6C757D; /* Fijar el encabezado con fondo gris oscuro */
+    color: white;
 }
 
 th, td {
-    padding: 15px; /* Espaciado interno */
-    text-align: left; /* Alinear texto a la izquierda */
+    padding: 15px;
+    text-align: left;
     border-bottom: 1px solid #ddd; /* Línea inferior en celdas */
 }
 
 th {
-    background-color: #6C757D; /* Gris oscuro para encabezados */
-    color: #fff; /* Texto blanco */
+    background-color: #6C757D; /* Encabezado gris oscuro */
+    color: white;
 }
 
 /* Alternating row colors */
@@ -110,46 +115,29 @@ tbody tr:hover {
     background-color: rgba(0, 123, 255, 0.1); /* Resaltar fila al pasar el mouse */
 }
 
-/* Message for no projects */
-p {
-    color: #6C757D; /* Texto gris oscuro */
-    text-align: center; /* Centrar texto */
-    margin-top: 20px; /* Espaciado superior */
-}
-
-/* Button styles for editing projects */
-td button.edit {
-    background-color: #007BFF; /* Azul para editar */
-}
-
-td button.edit:hover {
-    background-color: #0056b3; /* Azul más oscuro al pasar el mouse */
-}
-
-/* Add space between buttons in the actions column */
+/* Button inside table cells */
 td button {
+    margin-right: 5px;
+    padding: 5px 10px;
     width: auto;
-    margin-right: 10px; /* Espaciado entre botones */
 }
-
 
 /* Paginación */
 .pagination {
     display: flex;
     justify-content: center;
     margin: 20px 0;
+    gap: 5px;
 }
 
 .pagination button {
     background-color: #f2f2f2;
     border: none;
     padding: 10px 15px;
-    margin: 0 5px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 0.9em;
     border-radius: 5px;
     transition: background-color 0.3s ease;
-    width: auto;
 }
 
 .pagination button:hover {
@@ -161,4 +149,75 @@ td button {
     background-color: #007bff;
     color: white;
     pointer-events: none;
+}
+
+/* Responsive styles for tablets (768px - 1024px) */
+@media (max-width: 1024px) {
+    .container-projects-user {
+        width: 90%;
+    }
+
+    table {
+        font-size: 0.9em;
+    }
+
+    td button {
+        width: 90%;
+    }
+}
+
+/* Responsive styles for mobile devices (480px - 768px) */
+@media (max-width: 768px) {
+    .container-projects-user {
+        width: 100%;
+        overflow: auto;
+        margin-top: 10%;    
+    }
+
+    .table-container-accounts-user {
+        width: 100%;
+        width: 91%;
+        margin-left: 2%;
+        }
+
+    table {
+        width: 109%;
+        overflow-x: auto;
+        font-size: 0.85em;
+    }
+
+    td button {
+        width: 100%;
+        font-size: 0.8em;
+    }
+}
+
+/* Responsive styles for small mobile devices (less than 480px) */
+@media (max-width: 480px) {
+    #root{
+        width: 100%;
+        height: 100%;
+    }
+
+
+    .container-projects-user {
+        width: 100%;
+        margin-top: 12%;
+        overflow: auto; 
+    }
+
+    /* Main content area */
+    .main-content-user {
+        margin: 0 auto; /* Centrar el contenido */
+        height: 1000px;
+    }
+
+    table {
+        font-size: 0.75em;
+    }
+
+    td button {
+        width: 100%;
+        font-size: 0.7em;
+    }
 }

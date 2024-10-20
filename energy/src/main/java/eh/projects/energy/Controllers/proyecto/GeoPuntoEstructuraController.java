@@ -1,5 +1,6 @@
 package eh.projects.energy.Controllers.proyecto;
 
+import eh.projects.energy.Objects.GeoPuntoDTO;
 import eh.projects.energy.Objects.GeoPuntoEstructuraDTO;
 import eh.projects.energy.Services.GeoPuntoEstructuraService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,19 @@ public class GeoPuntoEstructuraController {
         return geopuntoEstructura.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND)
                         .body(null)); // Devuelve 404 si no se encuentra
+    }
+
+
+    @GetMapping("/proyecto/{id}")
+    public ResponseEntity<List<GeoPuntoEstructuraDTO>> getAllPerProyecto(@PathVariable("id") Long id){
+        List<GeoPuntoEstructuraDTO> dto = geoPuntoEstructuraService.getAllPerProyecto(id);
+        return new ResponseEntity<>(dto, HttpStatus.OK);
+    }
+
+    @GetMapping("/geopunto/{geopuntoId}")
+    public ResponseEntity<List<GeoPuntoEstructuraDTO>> getEstructurasPorGeopunto(@PathVariable Long geopuntoId) {
+        List<GeoPuntoEstructuraDTO> estructuras = geoPuntoEstructuraService.getEstructurasPorGeopunto(geopuntoId);
+        return ResponseEntity.ok(estructuras);
     }
 
     // Insertar estructura en geopunto

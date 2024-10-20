@@ -63,3 +63,14 @@ export const eliminarGeoPuntoEstructuraPorID = async (id, token) => {
         throw error.response.data || 'Error al eliminar el geopunto estructura';
     }
 };
+
+// Obtener estructuras por ID de geopunto
+export const obtenerEstructurasPorGeoPunto = async (geopuntoId, token) => {
+    try {
+        const response = await axios.get(`${API_URL}/geopuntoEstructura/geopunto/${geopuntoId}`, getHeaders(token));
+        return response.data;
+    } catch (error) {
+        console.error('Error al obtener las estructuras del geopunto', error);
+        throw error;
+    }
+};

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../auth/AuthContext';
 import { login } from "../../api";
+import { jwtDecode } from "jwt-decode";
 import "../../Styles/Login.css";
 
 const Login = () => {
@@ -15,14 +16,24 @@ const Login = () => {
     event.preventDefault();
     try {
       const { token } = await login(username, password);
-      loginContext(token, username);
-      alert('¡Inicio de sesión exitoso!'); // Mostrar alerta de éxito
+      // Decodifica el token para obtener los roles
+      const decodedToken = jwtDecode(token);
+      console.log('Token decodificado:', decodedToken); // Agrega este log para verificar el contenido
+      const roles = decodedToken.roles || []; // Asegúrate de que los roles sean un array
+      
+      // Verifica si los roles están siendo extraídos correctamente
+      console.log('Roles cargados desde el token:', roles); // Agrega este log
+  
+      // Pasa el token, nombre de usuario y roles a loginContext
+      loginContext(token, username, roles);
+      alert('¡Inicio de sesión exitoso!');
       navigate('/proyectos');
     } catch (error) {
-      alert(`Email o Contraseña incorrectos.`); // Mostrar alerta de error
-      setError(error.message); // Opcional: conservar el mensaje de error para depuración
+      alert(`Email o Contraseña incorrectos.`);
+      setError(error.message);
     }
   };
+  
 
   const handleRegisterClick = () => {
     navigate('/register');

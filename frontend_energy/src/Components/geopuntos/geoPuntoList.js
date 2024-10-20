@@ -5,6 +5,7 @@ import { obtenerGeoPuntosPorProyecto, eliminarGeoPunto } from "./geoPuntoService
 import CreateGeoPuntoModal from "./geoPuntoNew";
 import AgregarEstructuraModal from "../estructuras/geoPuntoEstructurasNew";
 import EditGeoPuntoModal from "./geoPuntoEdit";
+import CreateGeoPuntoManualModal from "./CreateGeoPuntoManualModal ";
 
 import "../../Styles/projectUser.css";
 
@@ -16,6 +17,7 @@ const GeoPuntoUser = () => {
     const [geoPuntos, setGeoPuntos] = useState([]);
     const [editingGeoPunto, setEditingGeoPunto] = useState(null);
     const [showCreateModal, setShowCreateModal] = useState(false);
+    const [showManualCreateModal, setShowManualCreateModal] = useState(false); // Estado para el modal manual
     const [showEditModal, setShowEditModal] = useState(false);
     const [showAgregarEstructuraModal, setShowAgregarEstructuraModal] = useState(false);
     const [selectedGeoPuntoId, setSelectedGeoPuntoId] = useState(null);
@@ -23,7 +25,6 @@ const GeoPuntoUser = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [geoPuntosPerPage] = useState(10); 
     
-    console.log("Received project ID in GeoPuntosList:", id); // Verifica aquí
     useEffect(() => {
         if (authData.token && id) {
             obtenerGeoPuntosPorProyecto(id, authData.token)
@@ -41,7 +42,7 @@ const GeoPuntoUser = () => {
             await eliminarGeoPunto(id, authData.token);
             setGeoPuntos(geoPuntos.filter(geoPunto => geoPunto.id !== id));
         } catch (error) {
-            console.error('Error al eliminar el geoPuntos: ', error);
+            console.error('Error al eliminar el geoPunto: ', error);
         }
     };
 
@@ -66,28 +67,50 @@ const GeoPuntoUser = () => {
         setShowEditModal(true);
     };
 
-    // Llamar al modal cuando se haga clic en "Agregar Estructura"
     const handleAgregarEstructuraClick = (geoPuntoId) => {
         setSelectedGeoPuntoId(geoPuntoId);
         setShowAgregarEstructuraModal(true);
     };
 
-    // Cerrar el modal y agregar la estructura
     const handleAgregarEstructura = (estructura) => {
-        // Aquí puedes llamar a tu backend para agregar la estructura a la tabla geopunto_estructura
         console.log(`Estructura ${estructura.nombre} agregada al GeoPunto ${selectedGeoPuntoId}`);
     };
 
-    // Paginación: Calcular índices de proyectos por página
     const indexOfLastGeoPunto = currentPage * geoPuntosPerPage;
     const indexOfFirstGeoPunto = indexOfLastGeoPunto - geoPuntosPerPage;
     const currentGeoPuntos = geoPuntos.slice(indexOfFirstGeoPunto, indexOfLastGeoPunto);
 
-    // Cambiar de página
-    const paginate = (pageNumber) => setCurrentPage(pageNumber);
-
-    // Calcular número total de páginas
     const totalPages = Math.ceil(geoPuntos.length / geoPuntosPerPage);
+
+    // Funciones de navegación
+    const paginate = (pageNumber) => setCurrentPage(pageNumber);
+    
+    const handleNextFive = () => {
+        const nextPage = Math.min(currentPage + 5, totalPages);
+        setCurrentPage(nextPage);
+    };
+
+    const handlePrevFive = () => {
+        const prevPage = Math.max(currentPage - 5, 1);
+        setCurrentPage(prevPage);
+    };
+
+    const goToFirstPage = () => {
+        setCurrentPage(1);
+    };
+
+    const goToLastPage = () => {
+        setCurrentPage(totalPages);
+    };
+
+    // Limitar los botones de paginación (2 antes y 2 después de la página actual)
+    const visiblePages = [];
+    const startPage = Math.max(1, currentPage - 2);
+    const endPage = Math.min(totalPages, currentPage + 2);
+
+    for (let i = startPage; i <= endPage; i++) {
+        visiblePages.push(i);
+    }
 
     return (
         <div className="container-projects">
@@ -96,6 +119,7 @@ const GeoPuntoUser = () => {
                     <h2>GeoPuntos del Proyecto</h2>
                     <div className="botones">
                         <button className="create" onClick={() => setShowCreateModal(true)}>Crear un GeoPunto Nuevo</button>
+                        <button className="create" onClick={() => setShowManualCreateModal(true)}>Crear un GeoPunto Manualmente</button> {/* Nuevo botón */}
                     </div>
                     {geoPuntos.length > 0 ? (
                         <>
@@ -133,15 +157,21 @@ const GeoPuntoUser = () => {
                             </div>
 
                             <div className="pagination">
-                                {[...Array(totalPages).keys()].map(page => (
+                                <button onClick={goToFirstPage} disabled={currentPage === 1}>Primero</button>
+                                <button onClick={handlePrevFive} disabled={currentPage === 1}>-5</button>
+                                
+                                {visiblePages.map(page => (
                                     <button
-                                        key={page + 1}
-                                        onClick={() => paginate(page + 1)}
-                                        className={currentPage === page + 1 ? "active" : ""}
+                                        key={page}
+                                        onClick={() => paginate(page)}
+                                        className={currentPage === page ? "active" : ""}
                                     >
-                                        {page + 1}
+                                        {page}
                                     </button>
                                 ))}
+
+                                <button onClick={handleNextFive} disabled={currentPage === totalPages}>+5</button>
+                                <button onClick={goToLastPage} disabled={currentPage === totalPages}>Último</button>
                             </div>
                         </>
                     ) : (
@@ -151,8 +181,14 @@ const GeoPuntoUser = () => {
                         <CreateGeoPuntoModal
                             onClose={() => setShowCreateModal(false)}
                             onGeoPuntoCreated={handleGeoPuntoCreated}
-                            proyectoId={id} // Asegúrate de que idDelProyecto sea el ID correcto
-
+                            proyectoId={id}
+                        />
+                    )}
+                    {showManualCreateModal && (
+                        <CreateGeoPuntoManualModal
+                            onClose={() => setShowManualCreateModal(false)}
+                            onGeoPuntoCreated={handleGeoPuntoCreated} // Actualiza la lista después de crear
+                            proyectoId={id}
                         />
                     )}
                     {showEditModal && (

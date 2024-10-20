@@ -4,17 +4,32 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import jakarta.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.function.Function;
 
 @Component
 public class JwtUtil {
-    private SecretKey secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
-    ; // Usa una clave secreta compleja y guárdala de manera segura
+    @Value("${jwt.secret}")
+    private String jwtSecret;
+
+    private SecretKey secretKey;
+
+    @PostConstruct
+    public void init() {
+        secretKey = Keys.hmacShaKeyFor(jwtSecret.getBytes());
+    }
+
+    @Value("${jwt.expiration}")
+    private long jwtExpirationInMs;
 
     public String extraerUsername(String token) {
         return extraerClaim(token, Claims::getSubject);
@@ -42,15 +57,22 @@ public class JwtUtil {
         return extraerFechaExpiracion(token).before(new Date());
     }
 
-    public String generarToken(UserDetails userDetails) {
-        return crearToken(userDetails.getUsername());
+    // Método para generar token con roles
+    public String generarToken(UserDetails userDetails, List<String> roles) {
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("roles", roles);  // Incluir los roles en los claims
+        return crearToken(claims, userDetails.getUsername());
     }
 
-    private String crearToken(String subject) {
-        return Jwts.builder().setSubject(subject)
+    // Crear token JWT con claims adicionales
+    private String crearToken(Map<String, Object> claims, String subject) {
+        return Jwts.builder()
+                .setClaims(claims)
+                .setSubject(subject)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10)) // 10 horas de validez
-                .signWith(SignatureAlgorithm.HS256, secretKey).compact();
+                .setExpiration(new Date(System.currentTimeMillis() + jwtExpirationInMs))
+                .signWith(SignatureAlgorithm.HS256, secretKey)
+                .compact();
     }
 
     public Boolean validarToken(String token, UserDetails userDetails) {
